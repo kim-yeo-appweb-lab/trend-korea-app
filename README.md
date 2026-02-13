@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Trend Korea Frontend
+
+대한민국 사건/이슈 타임라인 추적 서비스의 프론트엔드 애플리케이션
+
+## Tech Stack
+
+| Category        | Technology                        |
+| --------------- | --------------------------------- |
+| Framework       | Next.js 16 (App Router)           |
+| Language        | TypeScript 5.9 (strict mode)      |
+| Styling         | Tailwind CSS 4                    |
+| Package Manager | pnpm                              |
+| Linting         | ESLint 9 (flat config) + Prettier |
+| Git Hooks       | lefthook                          |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js (LTS)
+- pnpm
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000 에서 확인
 
-## Learn More
+### Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm build          # 프로덕션 빌드
+pnpm lint           # ESLint 검사
+pnpm lint:fix       # ESLint 자동 수정
+pnpm format         # Prettier 포맷팅
+pnpm format:check   # Prettier 검사
+pnpm type:check     # TypeScript 타입 체크
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/              # 라우팅 전용 (page, layout, loading, error)
+│   ├── (auth)/       # 인증 페이지 (별도 레이아웃)
+│   └── (main)/       # 메인 앱 (공통 네비게이션)
+├── features/         # 기능별 모듈 (components, types, services, hooks)
+├── shared/           # 공통 모듈 (UI, hooks, utils, types, lib)
+└── widgets/          # 조합형 UI 블록
+```
 
-## Deploy on Vercel
+## Documentation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [PRD](./docs/PRD.md) - 제품 요구사항 정의서
