@@ -1,38 +1,45 @@
 {
-  "name": "trend-korea",
-  "version": "1.0.0",
-  "description": "trend korea app",
-  "homepage": "null",
+	"name": "trend-korea",
+	"version": "1.0.0",
+	"description": "trend korea app",
+	"homepage": "null",
 	"bugs": {
 		"url": "https://github.com/kim-yeo-appweb-lab/trend-korea-frontend/issues"
 	},
-  "repository": {
+	"repository": {
 		"type": "git",
 		"url": "https://github.com/kim-yeo-appweb-lab/trend-korea-frontend.git"
 	},
-  "license": "UNLICENSED",
+	"license": "UNLICENSED",
 	"author": "chan9yu <dev.cgyeo@gmail.com>",
-  "private": true,
-  "packageManager": "pnpm@10.29.3",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+	"private": true,
+	"packageManager": "pnpm@10.29.3",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "eslint",
+		"lint:fix": "eslint --fix",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
+	},
+	"dependencies": {
+		"next": "16.1.6",
+		"react": "19.2.3",
+		"react-dom": "19.2.3"
+	},
+	"devDependencies": {
+		"@tailwindcss/postcss": "^4",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"eslint": "^9",
+		"eslint-config-next": "16.1.6",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"prettier": "^3.8.1",
+		"prettier-plugin-tailwindcss": "^0.7.2",
+		"tailwindcss": "^4",
+		"typescript": "^5"
+	}
 }
