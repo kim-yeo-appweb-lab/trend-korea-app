@@ -13,5 +13,8 @@ pnpm-lock.yaml
 # Generated files
 coverage
 
+# Claude Code
+.claude
+
 # OS
 .DS_Store

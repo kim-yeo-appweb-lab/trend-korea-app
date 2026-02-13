@@ -2,7 +2,6 @@
 	"name": "trend-korea",
 	"version": "1.0.0",
 	"description": "대한민국 사건/이슈 타임라인 추적 서비스",
-	"homepage": "null",
 	"bugs": {
 		"url": "https://github.com/kim-yeo-appweb-lab/trend-korea-frontend/issues"
 	},
