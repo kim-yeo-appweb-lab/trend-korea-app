@@ -6,6 +6,7 @@
 
 - Next.js 16 (App Router) + React 19 + TypeScript 5.9 + Tailwind CSS 4
 - 패키지 매니저: pnpm
+- Node.js: v24.13.0 (.nvmrc)
 
 ## 스크립트
 
@@ -14,6 +15,32 @@
 - `pnpm lint` / `pnpm lint:fix` - ESLint
 - `pnpm format` / `pnpm format:check` - Prettier
 - `pnpm type:check` - TypeScript 타입 체크
+
+## 코드 규칙
+
+### Import
+
+- 상대 경로 사용 (path alias 미사용)
+- named export 우선 (default export 지양)
+- 순서: external → internal → relative (`eslint-plugin-simple-import-sort`로 자동 정렬)
+- 타입 import: `import { type Foo }` 인라인 형식 (`consistent-type-imports`)
+
+### 커밋 컨벤션
+
+- Conventional Commits 형식: `<타입>: <제목>`
+- 한국어 작성, 이모지 사용 금지
+- 타입: feat, fix, docs, style, refactor, perf, test, chore
+- 작은 작업 단위로 분리하여 커밋
+
+### Git Hooks (lefthook)
+
+- **pre-commit**: Prettier 포맷팅 → ESLint 검사 (staged 파일 대상)
+- **prepare-commit-msg**: 커밋 메시지 템플릿 자동 적용
+- **pre-push**: type-check + lint + format:check (병렬 실행)
+
+### CI (GitHub Actions)
+
+PR 생성 시 자동 실행: `type:check` → `lint` → `format:check` → `build`
 
 ## 도메인 용어
 

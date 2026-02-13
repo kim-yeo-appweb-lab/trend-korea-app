@@ -7,17 +7,19 @@
 | Category        | Technology                        |
 | --------------- | --------------------------------- |
 | Framework       | Next.js 16 (App Router)           |
+| UI Library      | React 19                          |
 | Language        | TypeScript 5.9 (strict mode)      |
 | Styling         | Tailwind CSS 4                    |
 | Package Manager | pnpm                              |
 | Linting         | ESLint 9 (flat config) + Prettier |
 | Git Hooks       | lefthook                          |
+| CI              | GitHub Actions                    |
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (LTS)
+- Node.js v24.13.0+ (`.nvmrc` 참고)
 - pnpm
 
 ### Installation
