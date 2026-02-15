@@ -3,11 +3,11 @@
 	"version": "1.0.0",
 	"description": "대한민국 사건/이슈 타임라인 추적 서비스",
 	"bugs": {
-		"url": "https://github.com/kim-yeo-appweb-lab/trend-korea-frontend/issues"
+		"url": "https://github.com/kim-yeo-appweb-lab/trend-korea-app/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/kim-yeo-appweb-lab/trend-korea-frontend.git"
+		"url": "https://github.com/kim-yeo-appweb-lab/trend-korea-app.git"
 	},
 	"license": "UNLICENSED",
 	"author": "chan9yu <dev.cgyeo@gmail.com>",
