@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { ThemeToggle } from "../shared/components/ThemeToggle";
+import { Logo, ThemeToggle } from "../shared/components";
 import { cn } from "../shared/utils";
 
 const NAV_ITEMS = [
@@ -30,9 +30,7 @@ export function Header() {
 			<div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
 				{/* 로고 */}
 				<div className="flex items-center gap-6">
-					<Link href="/" className="text-fg text-lg font-bold">
-						<span className="text-primary">C</span> 트렌드코리아
-					</Link>
+					<Logo variant="full" size="md" />
 
 					{/* 네비게이션 (데스크탑) */}
 					<nav className="hidden items-center gap-1 md:flex">

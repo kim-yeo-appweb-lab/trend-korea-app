@@ -6,6 +6,7 @@ export { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./Card";
 export { EmptyState } from "./EmptyState";
 export { Filter, FilterGroup } from "./Filter";
 export { Input } from "./Input";
+export { Logo } from "./Logo";
 export { Modal } from "./Modal";
 export { Pagination } from "./Pagination";
 export { SectionHeader } from "./SectionHeader";

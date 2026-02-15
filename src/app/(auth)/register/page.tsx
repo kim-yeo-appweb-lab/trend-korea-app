@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { AuthDivider, RegisterForm, SocialLoginButtons } from "../../../features/auth/components";
-import { Card } from "../../../shared/components";
+import { Card, Logo } from "../../../shared/components";
 
 export default function RegisterPage() {
 	const router = useRouter();
@@ -28,13 +27,9 @@ export default function RegisterPage() {
 			</button>
 
 			<div className="space-y-6">
-				<div className="text-center">
-					<Link href="/">
-						<h1 className="text-fg hover:text-primary cursor-pointer text-2xl font-bold transition-colors">
-							<span className="text-primary">C</span> 트렌드코리아
-						</h1>
-					</Link>
-					<p className="text-fg-muted mt-2 text-sm">회원가입하고 이슈를 추적하세요</p>
+				<div className="flex flex-col items-center text-center">
+					<Logo variant="full" size="lg" />
+					<p className="text-fg-muted mt-4 text-sm">회원가입하고 이슈를 추적하세요</p>
 				</div>
 				<Card className="p-6">
 					<RegisterForm />
