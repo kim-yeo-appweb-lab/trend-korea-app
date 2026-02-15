@@ -1,9 +1,7 @@
-import "../src/app/globals.css";
+import "../src/styles/globals.css";
 
 import type { Preview } from "@storybook/nextjs-vite";
 import { useEffect } from "react";
-
-import { ThemeProvider } from "../src/shared/lib/ThemeContext";
 
 const preview: Preview = {
 	parameters: {
@@ -18,34 +16,43 @@ const preview: Preview = {
 			test: "todo"
 		},
 
-		backgrounds: {
-			default: "light",
-			values: [
-				{ name: "light", value: "#fafafa" },
-				{ name: "dark", value: "#0a0a0a" }
-			]
-		},
-
 		docs: {
 			toc: true
 		}
 	},
 
+	globalTypes: {
+		theme: {
+			description: "테마 전환",
+			toolbar: {
+				title: "Theme",
+				icon: "circlehollow",
+				items: [
+					{ value: "light", icon: "sun", title: "Light" },
+					{ value: "dark", icon: "moon", title: "Dark" }
+				],
+				dynamicTitle: true
+			}
+		}
+	},
+
+	initialGlobals: {
+		theme: "light"
+	},
+
 	decorators: [
 		(Story, context) => {
-			const theme = context.globals.backgrounds?.value === "#0a0a0a" ? "dark" : "light";
+			const theme = context.globals.theme ?? "light";
 
-			// 스토리북 테마에 맞춰 data-theme 속성 설정
 			useEffect(() => {
 				document.documentElement.setAttribute("data-theme", theme);
 				document.documentElement.style.colorScheme = theme;
+
+				// Storybook 본문 배경색 동기화
+				document.body.style.backgroundColor = theme === "dark" ? "#0a0a0a" : "#fafafa";
 			}, [theme]);
 
-			return (
-				<ThemeProvider>
-					<Story />
-				</ThemeProvider>
-			);
+			return <Story />;
 		}
 	]
 };
