@@ -43,8 +43,8 @@ export function Modal({ open, onClose, title, children, className, ref }: ModalP
 		<dialog
 			ref={resolvedRef}
 			className={cn(
-				"border-border bg-surface shadow-level-3 w-full max-w-lg rounded-2xl border p-0 backdrop:bg-black/50",
-				"open:animate-in open:fade-in open:zoom-in-95",
+				"border-border bg-surface shadow-level-3 fixed top-1/2 left-1/2 m-0 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl border p-0 backdrop:bg-black/50",
+				"open:animate-in open:fade-in",
 				className
 			)}
 			onClick={handleBackdropClick}

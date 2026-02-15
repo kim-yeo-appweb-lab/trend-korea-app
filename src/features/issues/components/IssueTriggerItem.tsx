@@ -1,5 +1,6 @@
 import { Badge, SourceLink } from "../../../shared/components";
 import { type Trigger } from "../../../shared/types";
+import { formatDateTime } from "../../../shared/utils";
 
 type IssueTriggerItemProps = {
 	trigger: Trigger;
@@ -14,12 +15,7 @@ const triggerTypeLabels: Record<string, string> = {
 };
 
 export function IssueTriggerItem({ trigger }: IssueTriggerItemProps) {
-	const time = new Date(trigger.occurredAt).toLocaleDateString("ko-KR", {
-		month: "short",
-		day: "numeric",
-		hour: "2-digit",
-		minute: "2-digit"
-	});
+	const time = formatDateTime(trigger.occurredAt);
 
 	return (
 		<div className="flex gap-4">

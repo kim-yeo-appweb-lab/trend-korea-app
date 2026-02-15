@@ -1,16 +1,13 @@
 import { Badge, Card, CardContent } from "../../../shared/components";
 import { type Event } from "../../../shared/types";
+import { formatTime } from "../../../shared/utils";
 
 type TimelineEventCardProps = {
 	event: Event;
-	onDetailClick?: (id: string) => void;
 };
 
-export function TimelineEventCard({ event, onDetailClick: _onDetailClick }: TimelineEventCardProps) {
-	const time = new Date(event.occurredAt).toLocaleTimeString("ko-KR", {
-		hour: "2-digit",
-		minute: "2-digit"
-	});
+export function TimelineEventCard({ event }: TimelineEventCardProps) {
+	const time = formatTime(event.occurredAt);
 
 	return (
 		<Card className="hover:border-border-strong transition-colors">
