@@ -1,26 +1,619 @@
 @import "tailwindcss";
 
-:root {
-	--background: #ffffff;
-	--foreground: #171717;
-}
+/* ═════════════════════════════════════════════════════════════════
+ * 1. RAW TOKENS (Primitive Palette)
+ * 정적 원시값 — 브랜드/테마와 무관한 순수 색상 스케일
+ * Tailwind CSS 4 @theme 블록으로 빌드 타임에 유틸리티 클래스 생성
+ * 사용 예: bg-primary-500, text-neutral-700
+ * ═════════════════════════════════════════════════════════════════ */
+@theme {
+	/* ── Neutral (회색 스케일) ── */
+	--color-neutral-0: #ffffff;
+	--color-neutral-50: #fafafa;
+	--color-neutral-100: #f4f4f5;
+	--color-neutral-200: #e4e4e7;
+	--color-neutral-300: #d4d4d8;
+	--color-neutral-400: #a1a1aa;
+	--color-neutral-500: #71717a;
+	--color-neutral-600: #52525b;
+	--color-neutral-700: #3f3f46;
+	--color-neutral-800: #27272a;
+	--color-neutral-900: #18181b;
+	--color-neutral-950: #0a0a0a;
 
-@theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
+	/* ── Primary (코랄 오렌지) ── */
+	--color-primary-50: #fff5f2;
+	--color-primary-100: #ffe8e1;
+	--color-primary-200: #ffd0c3;
+	--color-primary-300: #ffae97;
+	--color-primary-400: #ff8b6b;
+	--color-primary-500: #ff6b47;
+	--color-primary-600: #f04e2a;
+	--color-primary-700: #cc3a1a;
+	--color-primary-800: #a8301a;
+	--color-primary-900: #8a2d1c;
+	--color-primary-950: #4c1309;
+
+	/* ── Secondary (딥 틸) ── */
+	--color-secondary-50: #f0fdfb;
+	--color-secondary-100: #ccfbf1;
+	--color-secondary-200: #99f6e4;
+	--color-secondary-300: #5eead4;
+	--color-secondary-400: #2dd4bf;
+	--color-secondary-500: #14b8a6;
+	--color-secondary-600: #0d9488;
+	--color-secondary-700: #0f766e;
+	--color-secondary-800: #115e59;
+	--color-secondary-900: #134e4a;
+	--color-secondary-950: #042f2e;
+
+	/* ── Success (녹색) ── */
+	--color-success-50: #f0fdf4;
+	--color-success-100: #dcfce7;
+	--color-success-200: #bbf7d0;
+	--color-success-300: #86efac;
+	--color-success-400: #4ade80;
+	--color-success-500: #22c55e;
+	--color-success-600: #16a34a;
+	--color-success-700: #15803d;
+	--color-success-800: #166534;
+	--color-success-900: #14532d;
+	--color-success-950: #052e16;
+
+	/* ── Warning (황색) ── */
+	--color-warning-50: #fefce8;
+	--color-warning-100: #fef9c3;
+	--color-warning-200: #fef08a;
+	--color-warning-300: #fde047;
+	--color-warning-400: #facc15;
+	--color-warning-500: #eab308;
+	--color-warning-600: #ca8a04;
+	--color-warning-700: #a16207;
+	--color-warning-800: #854d0e;
+	--color-warning-900: #713f12;
+	--color-warning-950: #422006;
+
+	/* ── Danger (적색) ── */
+	--color-danger-50: #fef2f2;
+	--color-danger-100: #fee2e2;
+	--color-danger-200: #fecaca;
+	--color-danger-300: #fca5a5;
+	--color-danger-400: #f87171;
+	--color-danger-500: #ef4444;
+	--color-danger-600: #dc2626;
+	--color-danger-700: #b91c1c;
+	--color-danger-800: #991b1b;
+	--color-danger-900: #7f1d1d;
+	--color-danger-950: #450a0a;
+
+	/* ── Info (청색) ── */
+	--color-info-50: #eff6ff;
+	--color-info-100: #dbeafe;
+	--color-info-200: #bfdbfe;
+	--color-info-300: #93c5fd;
+	--color-info-400: #60a5fa;
+	--color-info-500: #3b82f6;
+	--color-info-600: #2563eb;
+	--color-info-700: #1d4ed8;
+	--color-info-800: #1e40af;
+	--color-info-900: #1e3a8a;
+	--color-info-950: #172554;
+
+	/* ── Spacing (4px 기반) ── */
+	--spacing-0: 0px;
+	--spacing-1: 4px;
+	--spacing-2: 8px;
+	--spacing-3: 12px;
+	--spacing-4: 16px;
+	--spacing-5: 20px;
+	--spacing-6: 24px;
+	--spacing-7: 28px;
+	--spacing-8: 32px;
+	--spacing-9: 36px;
+	--spacing-10: 40px;
+	--spacing-12: 48px;
+	--spacing-14: 56px;
+	--spacing-16: 64px;
+	--spacing-20: 80px;
+	--spacing-24: 96px;
+
+	/* ── Border Radius ── */
+	--radius-xs: 2px;
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
+	--radius-xl: 16px;
+	--radius-2xl: 24px;
+	--radius-full: 9999px;
+
+	/* ── Typography ── */
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
+
+	/* ── Motion ── */
+	--duration-fast: 150ms;
+	--duration-normal: 250ms;
+	--duration-slow: 400ms;
+	--ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+	--ease-in: cubic-bezier(0.4, 0, 1, 1);
+	--ease-out: cubic-bezier(0, 0, 0.2, 1);
+	--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+	--ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ═════════════════════════════════════════════════════════════════
+ * 2. ALIAS TOKENS (브랜드/테마 매핑)
+ * Raw 팔레트를 브랜드 의미에 연결
+ * 브랜드 변경 시 이 레이어만 수정하면 전체 반영
+ * ═════════════════════════════════════════════════════════════════ */
+:root {
+	/* ── 브랜드 색상 ── */
+	--alias-brand-primary: var(--color-primary-500);
+	--alias-brand-primary-light: var(--color-primary-400);
+	--alias-brand-primary-dark: var(--color-primary-600);
+	--alias-brand-primary-subtle: var(--color-primary-50);
+	--alias-brand-secondary: var(--color-secondary-500);
+	--alias-brand-secondary-light: var(--color-secondary-400);
+	--alias-brand-secondary-dark: var(--color-secondary-600);
+	--alias-brand-secondary-subtle: var(--color-secondary-50);
+	--alias-brand-accent: var(--color-primary-400);
+
+	/* ── 피드백 색상 ── */
+	--alias-feedback-success: var(--color-success-500);
+	--alias-feedback-success-light: var(--color-success-400);
+	--alias-feedback-success-subtle: var(--color-success-50);
+	--alias-feedback-warning: var(--color-warning-500);
+	--alias-feedback-warning-light: var(--color-warning-400);
+	--alias-feedback-warning-subtle: var(--color-warning-50);
+	--alias-feedback-danger: var(--color-danger-500);
+	--alias-feedback-danger-light: var(--color-danger-400);
+	--alias-feedback-danger-subtle: var(--color-danger-50);
+	--alias-feedback-info: var(--color-info-500);
+	--alias-feedback-info-light: var(--color-info-400);
+	--alias-feedback-info-subtle: var(--color-info-50);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+ * 3. SEMANTIC TOKENS (역할 기반 — 라이트 모드)
+ * UI 역할에 따른 최종 토큰. 다크모드 전환은 여기서만 발생.
+ * ═════════════════════════════════════════════════════════════════ */
+:root {
+	/* ── 텍스트 (Text) ── */
+	--color-fg: var(--color-neutral-900);
+	--color-fg-secondary: var(--color-neutral-600);
+	--color-fg-muted: var(--color-neutral-400);
+	--color-fg-inverse: var(--color-neutral-50);
+	--color-fg-disabled: var(--color-neutral-300);
+
+	/* ── 배경 (Background) ── */
+	--color-bg: var(--color-neutral-50);
+	--color-surface: var(--color-neutral-0);
+	--color-surface-alt: var(--color-neutral-100);
+	--color-elevated: var(--color-neutral-0);
+	--color-brand-bg: var(--alias-brand-primary);
+	--color-subtle: var(--color-neutral-100);
+	--color-overlay: #00000040;
+
+	/* ── 보더 (Border) ── */
+	--color-border: var(--color-neutral-200);
+	--color-border-alt: var(--color-neutral-100);
+	--color-border-strong: var(--color-neutral-300);
+	--color-ring: var(--alias-brand-primary);
+
+	/* ── 인터랙티브: Primary ── */
+	--color-primary: var(--alias-brand-primary);
+	--color-primary-hover: var(--alias-brand-primary-dark);
+	--color-primary-active: var(--color-primary-700);
+	--color-primary-disabled: var(--color-primary-200);
+	--color-primary-fg: var(--color-neutral-0);
+
+	/* ── 인터랙티브: Secondary ── */
+	--color-secondary: var(--alias-brand-secondary);
+	--color-secondary-hover: var(--alias-brand-secondary-dark);
+	--color-secondary-active: var(--color-secondary-700);
+	--color-secondary-disabled: var(--color-secondary-200);
+	--color-secondary-fg: var(--color-neutral-0);
+
+	/* ── 인터랙티브: Ghost/Neutral ── */
+	--color-hover-bg: var(--color-neutral-100);
+	--color-active-bg: var(--color-neutral-200);
+
+	/* ── 상태: 진행중 (ongoing) ── */
+	--color-status-ongoing: var(--color-danger-500);
+	--color-status-ongoing-bg: var(--color-danger-50);
+
+	/* ── 상태: 종결 (closed) ── */
+	--color-status-closed: var(--color-success-500);
+	--color-status-closed-bg: var(--color-success-50);
+
+	/* ── 상태: 재점화 (reignited) ── */
+	--color-status-reignited: var(--color-warning-500);
+	--color-status-reignited-bg: var(--color-warning-50);
+
+	/* ── 상태: 확인필요 (unverified) ── */
+	--color-status-unverified: var(--color-primary-500);
+	--color-status-unverified-bg: var(--color-primary-50);
+
+	/* ── 배지 (Badge) ── */
+	--color-badge-breaking: var(--color-info-500);
+	--color-badge-breaking-bg: var(--color-info-50);
+	--color-badge-urgent: var(--color-danger-500);
+	--color-badge-urgent-bg: var(--color-danger-50);
+	--color-badge-new: var(--color-success-500);
+	--color-badge-new-bg: var(--color-success-50);
+
+	/* ── 순위 변동 (Rank) ── */
+	--color-rank-up: var(--color-danger-500);
+	--color-rank-down: var(--color-info-500);
+	--color-rank-neutral: var(--color-neutral-400);
+
+	/* ── 그림자 (Shadow) — 라이트 모드 ── */
+	--shadow-level-0: none;
+	--shadow-level-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-level-2: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+	--shadow-level-3: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-level-4: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+ * 4. THEME OVERRIDE (data-theme 속성 기반)
+ * 사용자가 수동으로 테마 전환 시 시스템 선호도 오버라이드
+ * ═════════════════════════════════════════════════════════════════ */
+
+:root[data-theme="light"] {
+	color-scheme: light;
+
+	/* 라이트 모드 강제 적용 (기본 :root 값과 동일) */
+	--color-fg: var(--color-neutral-900);
+	--color-fg-secondary: var(--color-neutral-600);
+	--color-fg-muted: var(--color-neutral-400);
+	--color-fg-inverse: var(--color-neutral-50);
+	--color-fg-disabled: var(--color-neutral-300);
+
+	--color-bg: var(--color-neutral-50);
+	--color-surface: var(--color-neutral-0);
+	--color-surface-alt: var(--color-neutral-100);
+	--color-elevated: var(--color-neutral-0);
+	--color-brand-bg: var(--alias-brand-primary);
+	--color-subtle: var(--color-neutral-100);
+	--color-overlay: #00000040;
+
+	--color-border: var(--color-neutral-200);
+	--color-border-alt: var(--color-neutral-100);
+	--color-border-strong: var(--color-neutral-300);
+	--color-ring: var(--alias-brand-primary);
+
+	--color-primary: var(--alias-brand-primary);
+	--color-primary-hover: var(--alias-brand-primary-dark);
+	--color-primary-active: var(--color-primary-700);
+	--color-primary-disabled: var(--color-primary-200);
+	--color-primary-fg: var(--color-neutral-0);
+
+	--color-secondary: var(--alias-brand-secondary);
+	--color-secondary-hover: var(--alias-brand-secondary-dark);
+	--color-secondary-active: var(--color-secondary-700);
+	--color-secondary-disabled: var(--color-secondary-200);
+	--color-secondary-fg: var(--color-neutral-0);
+
+	--color-hover-bg: var(--color-neutral-100);
+	--color-active-bg: var(--color-neutral-200);
+
+	--color-status-ongoing: var(--color-danger-500);
+	--color-status-ongoing-bg: var(--color-danger-50);
+	--color-status-closed: var(--color-success-500);
+	--color-status-closed-bg: var(--color-success-50);
+	--color-status-reignited: var(--color-warning-500);
+	--color-status-reignited-bg: var(--color-warning-50);
+	--color-status-unverified: var(--color-primary-500);
+	--color-status-unverified-bg: var(--color-primary-50);
+
+	--color-badge-breaking: var(--color-info-500);
+	--color-badge-breaking-bg: var(--color-info-50);
+	--color-badge-urgent: var(--color-danger-500);
+	--color-badge-urgent-bg: var(--color-danger-50);
+	--color-badge-new: var(--color-success-500);
+	--color-badge-new-bg: var(--color-success-50);
+
+	--color-rank-up: var(--color-danger-500);
+	--color-rank-down: var(--color-info-500);
+	--color-rank-neutral: var(--color-neutral-400);
+
+	--shadow-level-0: none;
+	--shadow-level-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-level-2: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+	--shadow-level-3: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-level-4: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+
+	/* 다크 모드 강제 적용 */
+	--color-fg: var(--color-neutral-100);
+	--color-fg-secondary: var(--color-neutral-400);
+	--color-fg-muted: var(--color-neutral-500);
+	--color-fg-inverse: var(--color-neutral-900);
+	--color-fg-disabled: var(--color-neutral-700);
+
+	--color-bg: var(--color-neutral-950);
+	--color-surface: var(--color-neutral-900);
+	--color-surface-alt: var(--color-neutral-800);
+	--color-elevated: var(--color-neutral-800);
+	--color-brand-bg: var(--alias-brand-primary-dark);
+	--color-subtle: var(--color-neutral-800);
+	--color-overlay: #00000066;
+
+	--color-border: var(--color-neutral-800);
+	--color-border-alt: var(--color-neutral-700);
+	--color-border-strong: var(--color-neutral-600);
+
+	--color-primary: var(--alias-brand-primary-light);
+	--color-primary-hover: var(--alias-brand-primary);
+	--color-primary-active: var(--color-primary-300);
+	--color-primary-disabled: var(--color-primary-950);
+	--color-primary-fg: var(--color-neutral-950);
+
+	--color-secondary: var(--alias-brand-secondary-light);
+	--color-secondary-hover: var(--alias-brand-secondary);
+	--color-secondary-active: var(--color-secondary-300);
+	--color-secondary-disabled: var(--color-secondary-950);
+	--color-secondary-fg: var(--color-neutral-950);
+
+	--color-hover-bg: var(--color-neutral-800);
+	--color-active-bg: var(--color-neutral-700);
+
+	--color-status-ongoing: var(--color-danger-400);
+	--color-status-ongoing-bg: var(--color-danger-950);
+	--color-status-closed: var(--color-success-400);
+	--color-status-closed-bg: var(--color-success-950);
+	--color-status-reignited: var(--color-warning-400);
+	--color-status-reignited-bg: var(--color-warning-950);
+	--color-status-unverified: var(--color-primary-400);
+	--color-status-unverified-bg: var(--color-primary-950);
+
+	--color-badge-breaking: var(--color-info-400);
+	--color-badge-breaking-bg: var(--color-info-950);
+	--color-badge-urgent: var(--color-danger-400);
+	--color-badge-urgent-bg: var(--color-danger-950);
+	--color-badge-new: var(--color-success-400);
+	--color-badge-new-bg: var(--color-success-950);
+
+	--color-rank-up: var(--color-danger-400);
+	--color-rank-down: var(--color-info-400);
+	--color-rank-neutral: var(--color-neutral-500);
+
+	--shadow-level-0: none;
+	--shadow-level-1: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+	--shadow-level-2: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+	--shadow-level-3: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+	--shadow-level-4: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+ * 5. SEMANTIC TOKENS (다크 모드 오버라이드 — 시스템 선호도 기반)
+ * ═════════════════════════════════════════════════════════════════ */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+		/* ── 텍스트 (Text) ── */
+		--color-fg: var(--color-neutral-100);
+		--color-fg-secondary: var(--color-neutral-400);
+		--color-fg-muted: var(--color-neutral-500);
+		--color-fg-inverse: var(--color-neutral-900);
+		--color-fg-disabled: var(--color-neutral-700);
+
+		/* ── 배경 (Background) ── */
+		--color-bg: var(--color-neutral-950);
+		--color-surface: var(--color-neutral-900);
+		--color-surface-alt: var(--color-neutral-800);
+		--color-elevated: var(--color-neutral-800);
+		--color-brand-bg: var(--alias-brand-primary-dark);
+		--color-subtle: var(--color-neutral-800);
+		--color-overlay: #00000066;
+
+		/* ── 보더 (Border) ── */
+		--color-border: var(--color-neutral-800);
+		--color-border-alt: var(--color-neutral-700);
+		--color-border-strong: var(--color-neutral-600);
+
+		/* ── 인터랙티브: Primary ── */
+		--color-primary: var(--alias-brand-primary-light);
+		--color-primary-hover: var(--alias-brand-primary);
+		--color-primary-active: var(--color-primary-300);
+		--color-primary-disabled: var(--color-primary-950);
+		--color-primary-fg: var(--color-neutral-950);
+
+		/* ── 인터랙티브: Secondary ── */
+		--color-secondary: var(--alias-brand-secondary-light);
+		--color-secondary-hover: var(--alias-brand-secondary);
+		--color-secondary-active: var(--color-secondary-300);
+		--color-secondary-disabled: var(--color-secondary-950);
+		--color-secondary-fg: var(--color-neutral-950);
+
+		/* ── 인터랙티브: Ghost/Neutral ── */
+		--color-hover-bg: var(--color-neutral-800);
+		--color-active-bg: var(--color-neutral-700);
+
+		/* ── 상태 (다크 모드에서 밝기 조절) ── */
+		--color-status-ongoing: var(--color-danger-400);
+		--color-status-ongoing-bg: var(--color-danger-950);
+		--color-status-closed: var(--color-success-400);
+		--color-status-closed-bg: var(--color-success-950);
+		--color-status-reignited: var(--color-warning-400);
+		--color-status-reignited-bg: var(--color-warning-950);
+		--color-status-unverified: var(--color-primary-400);
+		--color-status-unverified-bg: var(--color-primary-950);
+
+		/* ── 배지 (다크 모드) ── */
+		--color-badge-breaking: var(--color-info-400);
+		--color-badge-breaking-bg: var(--color-info-950);
+		--color-badge-urgent: var(--color-danger-400);
+		--color-badge-urgent-bg: var(--color-danger-950);
+		--color-badge-new: var(--color-success-400);
+		--color-badge-new-bg: var(--color-success-950);
+
+		/* ── 순위 변동 ── */
+		--color-rank-up: var(--color-danger-400);
+		--color-rank-down: var(--color-info-400);
+		--color-rank-neutral: var(--color-neutral-500);
+
+		/* ── 그림자 (Shadow) — 다크 모드 ── */
+		--shadow-level-0: none;
+		--shadow-level-1: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+		--shadow-level-2: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+		--shadow-level-3: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+		--shadow-level-4: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
 	}
 }
 
+/* ═════════════════════════════════════════════════════════════════
+ * 6. TAILWIND THEME 등록
+ * @theme inline: CSS 변수 참조 → 런타임 모드 전환 가능
+ * Semantic 토큰을 Tailwind 유틸리티 클래스로 등록
+ * ═════════════════════════════════════════════════════════════════ */
+@theme inline {
+	/* ── 텍스트 ── */
+	--color-fg: var(--color-fg);
+	--color-fg-secondary: var(--color-fg-secondary);
+	--color-fg-muted: var(--color-fg-muted);
+	--color-fg-inverse: var(--color-fg-inverse);
+	--color-fg-disabled: var(--color-fg-disabled);
+
+	/* ── 배경 ── */
+	--color-bg: var(--color-bg);
+	--color-surface: var(--color-surface);
+	--color-surface-alt: var(--color-surface-alt);
+	--color-elevated: var(--color-elevated);
+	--color-brand-bg: var(--color-brand-bg);
+	--color-subtle: var(--color-subtle);
+	--color-overlay: var(--color-overlay);
+
+	/* ── 보더 ── */
+	--color-border: var(--color-border);
+	--color-border-alt: var(--color-border-alt);
+	--color-border-strong: var(--color-border-strong);
+	--color-ring: var(--color-ring);
+
+	/* ── 인터랙티브: Primary ── */
+	--color-primary: var(--color-primary);
+	--color-primary-hover: var(--color-primary-hover);
+	--color-primary-active: var(--color-primary-active);
+	--color-primary-disabled: var(--color-primary-disabled);
+	--color-primary-fg: var(--color-primary-fg);
+
+	/* ── 인터랙티브: Secondary ── */
+	--color-secondary: var(--color-secondary);
+	--color-secondary-hover: var(--color-secondary-hover);
+	--color-secondary-active: var(--color-secondary-active);
+	--color-secondary-disabled: var(--color-secondary-disabled);
+	--color-secondary-fg: var(--color-secondary-fg);
+
+	/* ── 인터랙티브: Ghost/Neutral ── */
+	--color-hover-bg: var(--color-hover-bg);
+	--color-active-bg: var(--color-active-bg);
+
+	/* ── 상태 ── */
+	--color-status-ongoing: var(--color-status-ongoing);
+	--color-status-ongoing-bg: var(--color-status-ongoing-bg);
+	--color-status-closed: var(--color-status-closed);
+	--color-status-closed-bg: var(--color-status-closed-bg);
+	--color-status-reignited: var(--color-status-reignited);
+	--color-status-reignited-bg: var(--color-status-reignited-bg);
+	--color-status-unverified: var(--color-status-unverified);
+	--color-status-unverified-bg: var(--color-status-unverified-bg);
+
+	/* ── 배지 ── */
+	--color-badge-breaking: var(--color-badge-breaking);
+	--color-badge-breaking-bg: var(--color-badge-breaking-bg);
+	--color-badge-urgent: var(--color-badge-urgent);
+	--color-badge-urgent-bg: var(--color-badge-urgent-bg);
+	--color-badge-new: var(--color-badge-new);
+	--color-badge-new-bg: var(--color-badge-new-bg);
+
+	/* ── 순위 변동 ── */
+	--color-rank-up: var(--color-rank-up);
+	--color-rank-down: var(--color-rank-down);
+	--color-rank-neutral: var(--color-rank-neutral);
+
+	/* ── 그림자 ── */
+	--shadow-level-0: var(--shadow-level-0);
+	--shadow-level-1: var(--shadow-level-1);
+	--shadow-level-2: var(--shadow-level-2);
+	--shadow-level-3: var(--shadow-level-3);
+	--shadow-level-4: var(--shadow-level-4);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+ * 7. 기본 스타일
+ * ═════════════════════════════════════════════════════════════════ */
 body {
-	background: var(--background);
-	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	background: var(--color-bg);
+	color: var(--color-fg);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+ * 8. 스크롤바 디자인
+ * ═════════════════════════════════════════════════════════════════ */
+
+/* Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-border-strong) var(--color-surface-alt);
+}
+
+/* Webkit 브라우저 (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-surface-alt);
+	border-radius: 100vh;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-border-strong);
+	border: 3px solid var(--color-surface-alt);
+	border-radius: 100vh;
+	transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-fg-muted);
+}
+
+::-webkit-scrollbar-thumb:active {
+	background: var(--color-fg-secondary);
+}
+
+/* 가로 스크롤바 (필요한 경우) */
+::-webkit-scrollbar-corner {
+	background: var(--color-surface-alt);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+ * 9. 테마 전환 애니메이션
+ * ═════════════════════════════════════════════════════════════════ */
+
+/* View Transition API 지원 브라우저: 부드러운 크로스페이드 효과 */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 0.3s;
+	animation-timing-function: ease-in-out;
+}
+
+/* 폴백: transition 비활성화로 즉시 전환 (깜빡임 방지) */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+	transition: none !important;
+}
+
+/* 움직임 최소화 선호 사용자: 모든 테마 전환 애니메이션 비활성화 */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none !important;
+	}
 }
