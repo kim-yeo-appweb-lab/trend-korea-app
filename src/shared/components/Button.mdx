@@ -1,0 +1,54 @@
+import { Meta, Canvas, Controls, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ButtonStories from "./Button.stories";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+범용 버튼 컴포넌트입니다. 3가지 변형(variant)과 3가지 크기(size)를 지원하며, `asChild` 패턴으로 다른 요소로 렌더링할 수 있습니다.
+
+## 기본 사용법
+
+<Canvas of={ButtonStories.Primary} />
+
+## 변형 (Variants)
+
+| 변형        | 용도                  |
+| ----------- | --------------------- |
+| `primary`   | 주요 액션 (기본값)    |
+| `secondary` | 보조 액션             |
+| `ghost`     | 최소 강조 (배경 없음) |
+
+<Canvas of={ButtonStories.AllVariants} />
+
+## 크기 (Sizes)
+
+| 크기 | 높이 | 용도              |
+| ---- | ---- | ----------------- |
+| `sm` | 32px | 좁은 공간, 인라인 |
+| `md` | 40px | 기본 (기본값)     |
+| `lg` | 48px | 강조, 모바일 터치 |
+
+<Canvas of={ButtonStories.AllSizes} />
+
+## asChild 패턴
+
+`asChild` prop을 사용하면 버튼의 스타일과 동작을 자식 요소에 병합합니다.
+내부적으로 `Slot` 컴포넌트를 사용하여 `className`, 이벤트 핸들러, `ref`를 자동 병합합니다.
+
+```tsx
+// Link를 버튼 스타일로 렌더링
+<Button asChild>
+	<Link href="/timeline">타임라인 바로가기</Link>
+</Button>
+```
+
+<Canvas of={ButtonStories.AsChild} />
+
+## 비활성화
+
+<Canvas of={ButtonStories.Disabled} />
+
+## Props
+
+<ArgTypes of={ButtonStories} />
