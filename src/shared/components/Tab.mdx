@@ -1,0 +1,63 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as TabStories from "./Tab.stories";
+
+<Meta of={TabStories} />
+
+# TabList
+
+탭 네비게이션 컴포넌트입니다. 제네릭 타입으로 값의 타입 안전성을 보장합니다.
+
+## 변형 (Variants)
+
+| 변형        | 설명                         |
+| ----------- | ---------------------------- |
+| `filled`    | 선택 시 배경색 채움 (기본값) |
+| `underline` | 선택 시 하단 보더 강조       |
+
+### Filled
+
+<Canvas of={TabStories.Filled} />
+
+### Underline
+
+<Canvas of={TabStories.Underline} />
+
+## 크기 (Sizes)
+
+| 크기 | 용도               |
+| ---- | ------------------ |
+| `sm` | 보조 탭, 필터 영역 |
+| `md` | 기본 (기본값)      |
+
+<Canvas of={TabStories.Small} />
+
+## 사용법
+
+```tsx
+import { TabList } from "../shared/components";
+
+// 타입 안전한 탭 (제네릭)
+type Category = "all" | "politics" | "economy";
+
+const items: { value: Category; label: string }[] = [
+	{ value: "all", label: "전체" },
+	{ value: "politics", label: "정치" },
+	{ value: "economy", label: "경제" }
+];
+
+<TabList<Category> items={items} value={selected} onChange={setSelected} />;
+```
+
+## 인터랙션
+
+<Canvas of={TabStories.Interactive} />
+
+## 접근성
+
+- `role="tablist"` / `role="tab"` 자동 적용
+- `aria-selected`로 활성 탭 표시
+- `tabIndex` 관리: 활성 탭만 포커스 가능
+
+## Props
+
+<ArgTypes of={TabStories} />
