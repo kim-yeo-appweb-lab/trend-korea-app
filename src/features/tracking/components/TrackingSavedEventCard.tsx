@@ -15,9 +15,7 @@ export function TrackingSavedEventCard({ id: _id, title, date, tags }: TrackingS
 				<h3 className="text-fg text-sm font-semibold">{title}</h3>
 				<div className="flex flex-wrap gap-1">
 					{tags.map((tag) => (
-						<Badge key={tag} variant="tag">
-							{tag}
-						</Badge>
+						<Badge key={tag}>{tag}</Badge>
 					))}
 				</div>
 			</CardContent>

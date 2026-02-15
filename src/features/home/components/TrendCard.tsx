@@ -19,9 +19,7 @@ export function TrendCard({ item }: TrendCardProps) {
 				<p className="text-fg-muted mt-2 line-clamp-1 text-xs">{item.summary}</p>
 				<div className="mt-2 flex gap-1.5">
 					{item.tags.map((tag) => (
-						<Badge key={tag} variant="tag">
-							#{tag}
-						</Badge>
+						<Badge key={tag}>#{tag}</Badge>
 					))}
 				</div>
 			</div>

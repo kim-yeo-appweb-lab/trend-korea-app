@@ -52,7 +52,7 @@ export function TagInput({
 			)}
 		>
 			{value.map((tag) => (
-				<Badge key={tag} variant="tag" className="gap-1">
+				<Badge key={tag} className="gap-1">
 					{tag}
 					<button
 						type="button"

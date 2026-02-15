@@ -28,7 +28,7 @@ export function IssueTriggerItem({ trigger }: IssueTriggerItemProps) {
 			<div className="space-y-2 pb-6">
 				<div className="flex items-center gap-2">
 					<time className="text-fg-muted text-xs">{time}</time>
-					<Badge variant="default">{triggerTypeLabels[trigger.type] ?? trigger.type}</Badge>
+					<Badge>{triggerTypeLabels[trigger.type] ?? trigger.type}</Badge>
 				</div>
 				<p className="text-fg-secondary text-sm">{trigger.summary}</p>
 				{trigger.sources.length > 0 && (

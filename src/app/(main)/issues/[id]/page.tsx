@@ -1,6 +1,7 @@
 import { IssueDetailRelated, IssueDetailTimeline, IssueTrackButton } from "../../../../features/issues/components";
 import { Badge, Breadcrumb } from "../../../../shared/components";
 import { type Issue, type Tag, type Trigger } from "../../../../shared/types";
+import { issueStatusBadgeMap } from "../../../../shared/utils";
 
 // Mock 데이터 (상세 페이지용)
 const MOCK_TAGS: Tag[] = [
@@ -60,6 +61,7 @@ type IssueDetailPageProps = {
 
 export default async function IssueDetailPage({ params }: IssueDetailPageProps) {
 	const { id } = await params;
+	const statusBadge = issueStatusBadgeMap[MOCK_ISSUE.status];
 
 	return (
 		<div className="mx-auto max-w-3xl px-4 py-6">
@@ -70,7 +72,9 @@ export default async function IssueDetailPage({ params }: IssueDetailPageProps) 
 				<div>
 					<div className="mb-6 flex items-center justify-between gap-4">
 						<div className="flex items-center gap-3">
-							<Badge variant="status" status={MOCK_ISSUE.status} />
+							<Badge colorScheme={statusBadge.colorScheme} role="status" aria-label={`상태: ${statusBadge.label}`}>
+								{statusBadge.label}
+							</Badge>
 							<span className="text-fg-muted text-sm">추적자 {MOCK_ISSUE.trackerCount}명</span>
 						</div>
 						<IssueTrackButton issueId={id} />
@@ -80,9 +84,7 @@ export default async function IssueDetailPage({ params }: IssueDetailPageProps) 
 						<p className="text-fg-secondary text-sm leading-relaxed">{MOCK_ISSUE.description}</p>
 						<div className="flex flex-wrap gap-1.5">
 							{MOCK_ISSUE.tags.map((tag) => (
-								<Badge key={tag.id} variant="tag">
-									{tag.name}
-								</Badge>
+								<Badge key={tag.id}>{tag.name}</Badge>
 							))}
 						</div>
 					</div>

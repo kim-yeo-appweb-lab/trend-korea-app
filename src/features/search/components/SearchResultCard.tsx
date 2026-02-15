@@ -15,7 +15,7 @@ export function SearchResultCard({ item }: SearchResultCardProps) {
 	return (
 		<div className="border-border border-b py-4 last:border-b-0">
 			<div className="flex items-center gap-2">
-				<Badge variant="default">{typeLabels[item.type]}</Badge>
+				<Badge>{typeLabels[item.type]}</Badge>
 				<time className="text-fg-muted text-xs">{item.date}</time>
 			</div>
 			<h3 className="text-fg mt-1.5 text-sm font-semibold">{item.title}</h3>
@@ -23,9 +23,7 @@ export function SearchResultCard({ item }: SearchResultCardProps) {
 			{item.tags.length > 0 && (
 				<div className="mt-2 flex flex-wrap gap-1">
 					{item.tags.map((tag) => (
-						<Badge key={tag} variant="tag">
-							{tag}
-						</Badge>
+						<Badge key={tag}>{tag}</Badge>
 					))}
 				</div>
 			)}

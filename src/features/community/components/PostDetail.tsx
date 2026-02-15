@@ -21,9 +21,7 @@ export function PostDetail({ post }: PostDetailProps) {
 			</div>
 			<div className="border-border flex flex-wrap gap-1.5 border-t pt-4">
 				{post.tags.map((tag) => (
-					<Badge key={tag.id} variant="tag">
-						{tag.name}
-					</Badge>
+					<Badge key={tag.id}>{tag.name}</Badge>
 				))}
 			</div>
 		</article>

@@ -20,9 +20,7 @@ export function PostCard({ post }: PostCardProps) {
 				<div className="flex items-center justify-between pt-1">
 					<div className="flex flex-wrap gap-1">
 						{post.tags.slice(0, 3).map((tag) => (
-							<Badge key={tag.id} variant="tag">
-								{tag.name}
-							</Badge>
+							<Badge key={tag.id}>{tag.name}</Badge>
 						))}
 					</div>
 					<div className="text-fg-muted flex items-center gap-3 text-xs">

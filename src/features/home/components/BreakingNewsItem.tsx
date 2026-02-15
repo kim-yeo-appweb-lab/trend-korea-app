@@ -18,15 +18,17 @@ export function BreakingNewsItem({ item }: BreakingNewsItemProps) {
 			<time className="text-fg-muted shrink-0 pt-0.5 text-sm">{item.time}</time>
 			<div className="min-w-0 flex-1">
 				<h3 className="text-fg text-sm leading-snug font-medium">
-					{isHighImportance && <Badge variant="urgent" className="mr-2 align-text-top" />}
+					{isHighImportance && (
+						<Badge colorScheme="amber" className="mr-2 align-text-top">
+							긴급
+						</Badge>
+					)}
 					{item.title}
 				</h3>
 				<p className="text-fg-secondary mt-2 line-clamp-2 text-xs leading-relaxed">{item.summary}</p>
 				<div className="mt-2 flex gap-1.5">
 					{item.tags.map((tag) => (
-						<Badge key={tag} variant="tag">
-							{tag}
-						</Badge>
+						<Badge key={tag}>{tag}</Badge>
 					))}
 				</div>
 			</div>

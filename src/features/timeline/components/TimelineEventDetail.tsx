@@ -1,24 +1,27 @@
 import { Badge, SourceLink } from "../../../shared/components";
 import { type Event } from "../../../shared/types";
+import { importanceBadgeMap } from "../../../shared/utils";
 
 type TimelineEventDetailProps = {
 	event: Event;
 };
 
 export function TimelineEventDetail({ event }: TimelineEventDetailProps) {
+	const impBadge = importanceBadgeMap[event.importance];
+
 	return (
 		<div className="space-y-4">
 			<div className="flex flex-wrap items-center gap-2">
-				<Badge variant="importance" importance={event.importance} />
+				<Badge colorScheme={impBadge.colorScheme} aria-label={`중요도: ${impBadge.label}`}>
+					{impBadge.label}
+				</Badge>
 				<time className="text-fg-muted text-xs">{event.occurredAt}</time>
 			</div>
 			<h2 className="text-fg text-lg font-bold">{event.title}</h2>
 			<p className="text-fg-secondary text-sm leading-relaxed">{event.summary}</p>
 			<div className="flex flex-wrap gap-1.5">
 				{event.tags.map((tag) => (
-					<Badge key={tag.id} variant="tag">
-						{tag.name}
-					</Badge>
+					<Badge key={tag.id}>{tag.name}</Badge>
 				))}
 			</div>
 			{event.sources.length > 0 && (
