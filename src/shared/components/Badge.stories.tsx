@@ -8,18 +8,13 @@ const meta = {
 	argTypes: {
 		variant: {
 			control: "select",
-			options: ["default", "status", "importance", "tag", "breaking", "urgent", "new"],
-			description: "배지 변형"
+			options: ["subtle", "outline"],
+			description: "배지 스타일 변형"
 		},
-		status: {
+		colorScheme: {
 			control: "select",
-			options: ["ongoing", "closed", "reignited", "unverified"],
-			description: "이슈 상태 (variant=status 시 사용)"
-		},
-		importance: {
-			control: "select",
-			options: ["high", "medium", "low"],
-			description: "중요도 (variant=importance 시 사용)"
+			options: ["default", "green", "red", "amber", "blue", "gray"],
+			description: "색상 팔레트"
 		}
 	}
 } satisfies Meta<typeof Badge>;
@@ -33,107 +28,87 @@ export const Default: Story = {
 	}
 };
 
-export const StatusOngoing: Story = {
+export const Green: Story = {
 	args: {
-		variant: "status",
-		status: "ongoing"
+		colorScheme: "green",
+		children: "진행중"
 	}
 };
 
-export const StatusClosed: Story = {
+export const Red: Story = {
 	args: {
-		variant: "status",
-		status: "closed"
+		colorScheme: "red",
+		children: "속보"
 	}
 };
 
-export const StatusReignited: Story = {
+export const Amber: Story = {
 	args: {
-		variant: "status",
-		status: "reignited"
+		colorScheme: "amber",
+		children: "긴급"
 	}
 };
 
-export const StatusUnverified: Story = {
+export const Blue: Story = {
 	args: {
-		variant: "status",
-		status: "unverified"
+		colorScheme: "blue",
+		children: "NEW"
 	}
 };
 
-export const AllStatuses: Story = {
+export const Gray: Story = {
+	args: {
+		colorScheme: "gray",
+		children: "종결"
+	}
+};
+
+export const OutlineVariant: Story = {
+	args: {
+		variant: "outline",
+		colorScheme: "green",
+		children: "진행중"
+	}
+};
+
+export const AllColorSchemes: Story = {
 	render: () => (
 		<div className="flex flex-wrap items-center gap-2">
-			<Badge variant="status" status="ongoing" />
-			<Badge variant="status" status="closed" />
-			<Badge variant="status" status="reignited" />
-			<Badge variant="status" status="unverified" />
+			<Badge>기본</Badge>
+			<Badge colorScheme="green">Green</Badge>
+			<Badge colorScheme="red">Red</Badge>
+			<Badge colorScheme="amber">Amber</Badge>
+			<Badge colorScheme="blue">Blue</Badge>
+			<Badge colorScheme="gray">Gray</Badge>
 		</div>
 	)
 };
 
-export const ImportanceHigh: Story = {
-	args: {
-		variant: "importance",
-		importance: "high"
-	}
-};
-
-export const ImportanceMedium: Story = {
-	args: {
-		variant: "importance",
-		importance: "medium"
-	}
-};
-
-export const ImportanceLow: Story = {
-	args: {
-		variant: "importance",
-		importance: "low"
-	}
-};
-
-export const AllImportances: Story = {
+export const AllOutlineColorSchemes: Story = {
 	render: () => (
 		<div className="flex flex-wrap items-center gap-2">
-			<Badge variant="importance" importance="high" />
-			<Badge variant="importance" importance="medium" />
-			<Badge variant="importance" importance="low" />
+			<Badge variant="outline">기본</Badge>
+			<Badge variant="outline" colorScheme="green">
+				Green
+			</Badge>
+			<Badge variant="outline" colorScheme="red">
+				Red
+			</Badge>
+			<Badge variant="outline" colorScheme="amber">
+				Amber
+			</Badge>
+			<Badge variant="outline" colorScheme="blue">
+				Blue
+			</Badge>
+			<Badge variant="outline" colorScheme="gray">
+				Gray
+			</Badge>
 		</div>
 	)
 };
 
-export const Tag: Story = {
+export const TagExample: Story = {
 	args: {
-		variant: "tag",
 		children: "정치"
 	}
-};
-
-export const Breaking: Story = {
-	args: {
-		variant: "breaking"
-	}
-};
-
-export const Urgent: Story = {
-	args: {
-		variant: "urgent"
-	}
-};
-
-export const New: Story = {
-	args: {
-		variant: "new"
-	}
-};
-
-export const LabelBadges: Story = {
-	render: () => (
-		<div className="flex flex-wrap items-center gap-2">
-			<Badge variant="breaking" />
-			<Badge variant="urgent" />
-			<Badge variant="new" />
-		</div>
-	)
 };

@@ -40,7 +40,7 @@ export const WithLink: Story = {
 export const WithChildren: Story = {
 	render: (args) => (
 		<SectionHeader {...args} title="인기 게시글" href="/community">
-			<Badge variant="new" />
+			<Badge colorScheme="blue">NEW</Badge>
 		</SectionHeader>
 	)
 };
