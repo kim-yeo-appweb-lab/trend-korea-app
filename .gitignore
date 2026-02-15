@@ -24,6 +24,12 @@
 .DS_Store
 *.pem
 
+# tools & design
+.serena
+.design
+.vscode
+debug-storybook.log
+
 # debug
 npm-debug.log*
 yarn-debug.log*
