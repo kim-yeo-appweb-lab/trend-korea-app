@@ -71,5 +71,10 @@ function InteractiveDemo() {
 }
 
 export const Interactive: Story = {
+	args: {
+		open: false,
+		onClose: () => {},
+		children: null
+	},
 	render: () => <InteractiveDemo />
 };

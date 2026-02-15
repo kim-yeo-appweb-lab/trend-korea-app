@@ -60,6 +60,9 @@ export const Large: Story = {
 };
 
 export const AllSizes: Story = {
+	args: {
+		name: "홍길동"
+	},
 	render: () => (
 		<div className="flex items-center gap-3">
 			<Avatar name="홍길동" size="sm" />
@@ -70,6 +73,9 @@ export const AllSizes: Story = {
 };
 
 export const FallbackInitials: Story = {
+	args: {
+		name: "Alice"
+	},
 	render: () => (
 		<div className="flex items-center gap-3">
 			<Avatar name="Alice" />
