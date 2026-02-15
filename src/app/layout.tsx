@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../styles/globals.css";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -16,8 +16,46 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "트렌드 코리아",
-	description: "대한민국 사건/이슈 타임라인 추적 서비스"
+	title: {
+		default: "트렌드코리아 - 대한민국 이슈 추적 플랫폼",
+		template: "%s | 트렌드코리아"
+	},
+	description: "대한민국 사건과 이슈를 타임라인으로 추적하는 시민 참여형 플랫폼",
+	keywords: ["트렌드코리아", "이슈추적", "타임라인", "사건", "뉴스", "커뮤니티"],
+	authors: [{ name: "트렌드코리아" }],
+	creator: "트렌드코리아",
+	publisher: "트렌드코리아",
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false
+	},
+	metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+	alternates: {
+		canonical: "/"
+	},
+	openGraph: {
+		type: "website",
+		locale: "ko_KR",
+		url: "/",
+		title: "트렌드코리아 - 대한민국 이슈 추적 플랫폼",
+		description: "대한민국 사건과 이슈를 타임라인으로 추적하는 시민 참여형 플랫폼",
+		siteName: "트렌드코리아"
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "트렌드코리아 - 대한민국 이슈 추적 플랫폼",
+		description: "대한민국 사건과 이슈를 타임라인으로 추적하는 시민 참여형 플랫폼"
+	},
+	icons: {
+		icon: [{ url: "/icons/icon.png", sizes: "96x96", type: "image/png" }],
+		apple: [{ url: "/icons/apple-icon.png", sizes: "180x180", type: "image/png" }]
+	},
+	manifest: "/manifest.json",
+	themeColor: [
+		{ media: "(prefers-color-scheme: light)", color: "#ffffff" },
+		{ media: "(prefers-color-scheme: dark)", color: "#0a0a0a" }
+	]
 };
 
 export default function RootLayout({
