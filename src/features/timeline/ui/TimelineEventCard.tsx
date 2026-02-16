@@ -1,7 +1,8 @@
 import { Badge } from "@kim-yeo-appweb-lab/ui";
 
-import { formatTime, importanceBadgeMap } from "../../../shared/utils";
+import { formatTime } from "../../../shared/utils";
 import { type Event } from "../model";
+import { importanceBadgeMap } from "../utils/badgeMapping";
 
 type TimelineEventCardProps = {
 	event: Event;

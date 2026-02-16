@@ -1,7 +1,7 @@
 import { Badge, Card } from "@kim-yeo-appweb-lab/ui";
 
-import { issueStatusBadgeMap } from "../../../shared/utils";
 import { type IssueStatus } from "../../issues/model";
+import { issueStatusBadgeMap } from "../../issues/utils/badgeMapping";
 
 type TrackingIssueCardProps = {
 	id: string;

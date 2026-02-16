@@ -1,7 +1,7 @@
 import { Badge } from "@kim-yeo-appweb-lab/ui";
 
-import { issueStatusBadgeMap } from "../../../shared/utils";
 import { type Issue } from "../model";
+import { issueStatusBadgeMap } from "../utils/badgeMapping";
 
 type IssueCardProps = {
 	issue: Issue;
