@@ -1,8 +1,8 @@
 import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
 
-import { TimelineList } from "../../../features/timeline/components";
+import { TimelineList } from "../../../features/timeline";
 
-export default function TimelinePage() {
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-7xl px-4 py-6">
 			<SectionHeader title="타임라인" />

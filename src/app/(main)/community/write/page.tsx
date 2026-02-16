@@ -1,8 +1,8 @@
 import { Breadcrumb } from "@kim-yeo-appweb-lab/ui";
 
-import { PostWriteForm } from "../../../../features/community/components";
+import { PostWriteForm } from "../../../../features/community";
 
-export default function CommunityWritePage() {
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-3xl px-4 py-6">
 			<Breadcrumb

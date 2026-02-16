@@ -1,11 +1,12 @@
 "use client";
 
+import { Button } from "@kim-yeo-appweb-lab/ui";
 import { useRouter } from "next/navigation";
 
-import { AuthDivider, RegisterForm, SocialLoginButtons } from "../../../features/auth/components";
-import { Logo } from "../../../shared/components";
+import { AuthDivider, RegisterForm, SocialLoginButtons } from "../../../features/auth";
+import { Logo } from "../../../shared/ui";
 
-export default function RegisterPage() {
+export default function Page() {
 	const router = useRouter();
 
 	function handleBack() {
@@ -14,27 +15,33 @@ export default function RegisterPage() {
 
 	return (
 		<>
-			{/* 뒤로가기 버튼 - 화면 좌측 상단 고정 */}
-			<button
-				type="button"
-				onClick={handleBack}
-				className="text-fg-secondary hover:bg-hover-bg hover:text-fg fixed top-6 left-6 flex items-center gap-2 rounded-lg p-2 text-sm transition-colors"
-			>
+			<Button variant="ghost" size="sm" onClick={handleBack} className="fixed top-4 left-4 z-10" aria-label="뒤로가기">
 				<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
 				</svg>
-				<span className="hidden sm:inline">홈으로</span>
-			</button>
+				뒤로
+			</Button>
 
-			<div className="space-y-6">
-				<div className="flex flex-col items-center text-center">
-					<Logo variant="full" size="lg" />
-					<p className="text-fg-muted mt-4 text-sm">회원가입하고 이슈를 추적하세요</p>
-				</div>
-				<div className="bg-surface border-border rounded-lg border p-6">
-					<RegisterForm />
-					<AuthDivider />
-					<SocialLoginButtons />
+			<div className="flex min-h-screen items-center justify-center px-4">
+				<div className="w-full max-w-md space-y-6">
+					<div className="text-center">
+						<Logo variant="full" size="lg" className="mx-auto mb-4" disableLink />
+						<h1 className="text-fg text-2xl font-bold">회원가입</h1>
+						<p className="text-fg-muted mt-2 text-sm">소셜 계정으로 간편하게 가입하세요</p>
+					</div>
+
+					<div className="bg-surface border-border rounded-lg border p-8">
+						<SocialLoginButtons />
+						<AuthDivider />
+						<RegisterForm />
+					</div>
+
+					<p className="text-fg-muted text-center text-sm">
+						이미 계정이 있으신가요?{" "}
+						<a href="/login" className="text-primary font-medium hover:underline">
+							로그인
+						</a>
+					</p>
 				</div>
 			</div>
 		</>

@@ -1,8 +1,8 @@
 import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
 
-import { TrackingList } from "../../../features/tracking/components";
+import { TrackingList } from "../../../features/tracking";
 
-export default function TrackingPage() {
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-7xl px-4 py-6">
 			<SectionHeader title="내 추적" />

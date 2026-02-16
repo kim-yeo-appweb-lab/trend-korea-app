@@ -1,8 +1,8 @@
 import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
 
-import { PostList } from "../../../features/community/components";
+import { PostList } from "../../../features/community";
 
-export default function CommunityPage() {
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-7xl px-4 py-6">
 			<SectionHeader title="커뮤니티" />

@@ -1,8 +1,8 @@
 import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
 
-import { SearchResultList } from "../../../features/search/components";
+import { SearchResultList } from "../../../features/search";
 
-export default function SearchPage() {
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-3xl px-4 py-6">
 			<SectionHeader title="검색" />

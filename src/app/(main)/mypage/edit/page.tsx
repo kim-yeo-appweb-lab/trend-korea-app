@@ -1,8 +1,8 @@
 import { Breadcrumb } from "@kim-yeo-appweb-lab/ui";
 
-import { ProfileEditForm } from "../../../../features/mypage/components";
+import { ProfileEditForm } from "../../../../features/mypage";
 
-export default function MyPageEditPage() {
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-lg px-4 py-6">
 			<Breadcrumb

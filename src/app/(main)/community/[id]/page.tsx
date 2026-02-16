@@ -1,7 +1,14 @@
 import { Breadcrumb } from "@kim-yeo-appweb-lab/ui";
 
-import { CommentForm, CommentTree, PostActions, PostDetail } from "../../../../features/community/components";
-import { type Comment, type Post, type Tag } from "../../../../shared/types";
+import {
+	type Comment,
+	CommentForm,
+	CommentTree,
+	type Post,
+	PostActions,
+	PostDetail
+} from "../../../../features/community";
+import { type Tag } from "../../../../shared/types/common";
 
 // Mock 데이터
 const MOCK_TAGS: Tag[] = [
@@ -90,11 +97,11 @@ const MOCK_COMMENTS: Comment[] = [
 	}
 ];
 
-type CommunityDetailPageProps = {
+type PageProps = {
 	params: Promise<{ id: string }>;
 };
 
-export default async function CommunityDetailPage({ params }: CommunityDetailPageProps) {
+export default async function Page({ params }: PageProps) {
 	const { id } = await params;
 
 	return (

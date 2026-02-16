@@ -1,19 +1,8 @@
-import "../styles/globals.css";
+import "./styles/globals.css";
 
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 
-import { ThemeProvider } from "../shared/lib/ThemeContext";
-
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"]
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"]
-});
+import { geistMono, geistSans, Providers } from ".";
 
 export const metadata: Metadata = {
 	title: {
@@ -51,9 +40,12 @@ export const metadata: Metadata = {
 		icon: [{ url: "/icons/icon.png", sizes: "96x96", type: "image/png" }],
 		apple: [{ url: "/icons/apple-icon.png", sizes: "180x180", type: "image/png" }]
 	},
-	manifest: "/manifest.json",
+	manifest: "/manifest.json"
+};
+
+export const viewport: Viewport = {
 	themeColor: [
-		{ media: "(prefers-color-scheme: light)", color: "#ffffff" },
+		{ media: "(prefers-color-scheme: light)", color: "#fafafa" },
 		{ media: "(prefers-color-scheme: dark)", color: "#0a0a0a" }
 	]
 };
@@ -66,7 +58,7 @@ export default function RootLayout({
 	return (
 		<html lang="ko" suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<ThemeProvider>{children}</ThemeProvider>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);
