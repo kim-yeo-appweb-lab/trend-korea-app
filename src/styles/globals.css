@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
-@import "./tokens.css";
-@import "./theme.css";
-@import "./base.css";
+@import "@kim-yeo-appweb-lab/ui/styles";
+
+/* 프로젝트 전용 디자인 토큰 */
+@import "./custom.css";
