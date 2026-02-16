@@ -1,6 +1,7 @@
 "use client";
 
-import { Filter, FilterGroup } from "../../../shared/components";
+import { Filter, FilterGroup } from "@kim-yeo-appweb-lab/ui";
+
 import { type TimelineFilterState } from "../types";
 
 type TimelineFilterProps = {

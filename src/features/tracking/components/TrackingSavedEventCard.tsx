@@ -1,4 +1,4 @@
-import { Badge, Card, CardContent } from "../../../shared/components";
+import { Badge } from "@kim-yeo-appweb-lab/ui";
 
 type TrackingSavedEventCardProps = {
 	id: string;
@@ -9,8 +9,8 @@ type TrackingSavedEventCardProps = {
 
 export function TrackingSavedEventCard({ id: _id, title, date, tags }: TrackingSavedEventCardProps) {
 	return (
-		<Card className="hover:border-border-strong transition-colors">
-			<CardContent className="space-y-2">
+		<div className="bg-surface border-border hover:border-border-strong rounded-lg border p-6 transition-colors">
+			<div className="space-y-2">
 				<time className="text-fg-muted text-xs">{date}</time>
 				<h3 className="text-fg text-sm font-semibold">{title}</h3>
 				<div className="flex flex-wrap gap-1">
@@ -18,7 +18,7 @@ export function TrackingSavedEventCard({ id: _id, title, date, tags }: TrackingS
 						<Badge key={tag}>{tag}</Badge>
 					))}
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	);
 }

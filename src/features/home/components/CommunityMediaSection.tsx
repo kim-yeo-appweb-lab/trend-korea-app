@@ -1,4 +1,5 @@
-import { SectionHeader } from "../../../shared/components";
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { type CommunityMediaCardData } from "../types";
 import { CommunityMediaCard } from "./CommunityMediaCard";
 

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { AuthDivider, RegisterForm, SocialLoginButtons } from "../../../features/auth/components";
-import { Card, Logo } from "../../../shared/components";
+import { Logo } from "../../../shared/components";
 
 export default function RegisterPage() {
 	const router = useRouter();
@@ -31,11 +31,11 @@ export default function RegisterPage() {
 					<Logo variant="full" size="lg" />
 					<p className="text-fg-muted mt-4 text-sm">회원가입하고 이슈를 추적하세요</p>
 				</div>
-				<Card className="p-6">
+				<div className="bg-surface border-border rounded-lg border p-6">
 					<RegisterForm />
 					<AuthDivider />
 					<SocialLoginButtons />
-				</Card>
+				</div>
 			</div>
 		</>
 	);

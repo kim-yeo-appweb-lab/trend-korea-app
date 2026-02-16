@@ -1,8 +1,7 @@
 "use client";
 
+import { Button, Textarea } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
-
-import { Button, Textarea } from "../../../shared/components";
 
 type CommentFormProps = {
 	postId: string;

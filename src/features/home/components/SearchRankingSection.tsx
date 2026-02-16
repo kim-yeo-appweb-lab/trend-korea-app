@@ -1,4 +1,5 @@
-import { Card, SectionHeader } from "../../../shared/components";
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { type SearchRankingItemData } from "../types";
 import { SearchRankingItem } from "./SearchRankingItem";
 
@@ -21,13 +22,13 @@ export function SearchRankingSection() {
 			<SectionHeader title="실시간 검색순위">
 				<span className="text-fg-muted text-xs">1시간마다 갱신</span>
 			</SectionHeader>
-			<Card>
+			<div className="bg-surface border-border rounded-lg border p-6">
 				<ol className="space-y-0.5">
 					{DUMMY_SEARCH_RANKINGS.map((item) => (
 						<SearchRankingItem key={item.rank} item={item} />
 					))}
 				</ol>
-			</Card>
+			</div>
 		</section>
 	);
 }

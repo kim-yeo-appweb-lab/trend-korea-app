@@ -1,5 +1,6 @@
+import { Breadcrumb, SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { TimelineList } from "../../../../features/timeline/components";
-import { Breadcrumb, SectionHeader } from "../../../../shared/components";
 
 type TimelineDatePageProps = {
 	params: Promise<{ date: string }>;

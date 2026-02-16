@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { AuthDivider, LoginForm, SocialLoginButtons } from "../../../features/auth/components";
-import { Card, Logo } from "../../../shared/components";
+import { Logo } from "../../../shared/components";
 
 export default function LoginPage() {
 	const router = useRouter();
@@ -31,11 +31,11 @@ export default function LoginPage() {
 					<Logo variant="full" size="lg" />
 					<p className="text-fg-muted mt-4 text-sm">로그인하여 서비스를 이용하세요</p>
 				</div>
-				<Card className="p-6">
+				<div className="bg-surface border-border rounded-lg border p-6">
 					<LoginForm />
 					<AuthDivider />
 					<SocialLoginButtons />
-				</Card>
+				</div>
 			</div>
 		</>
 	);

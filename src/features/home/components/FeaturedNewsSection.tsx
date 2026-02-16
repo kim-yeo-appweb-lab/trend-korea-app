@@ -1,4 +1,5 @@
-import { Card, SectionHeader } from "../../../shared/components";
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { type FeaturedNewsCardData } from "../types";
 import { FeaturedNewsCard } from "./FeaturedNewsCard";
 
@@ -46,11 +47,11 @@ export function FeaturedNewsSection() {
 					실시간
 				</span>
 			</SectionHeader>
-			<Card>
+			<div className="bg-surface border-border rounded-lg border p-6">
 				{DUMMY_FEATURED_NEWS.map((item) => (
 					<FeaturedNewsCard key={item.id} item={item} />
 				))}
-			</Card>
+			</div>
 		</section>
 	);
 }

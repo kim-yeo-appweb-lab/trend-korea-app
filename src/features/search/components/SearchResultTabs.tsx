@@ -1,6 +1,7 @@
 "use client";
 
-import { TabList } from "../../../shared/components";
+import { TabList } from "@kim-yeo-appweb-lab/ui";
+
 import { type SearchTab } from "../types";
 
 type SearchResultTabsProps = {

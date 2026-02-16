@@ -1,5 +1,6 @@
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { TrackingList } from "../../../features/tracking/components";
-import { SectionHeader } from "../../../shared/components";
 
 export default function TrackingPage() {
 	return (

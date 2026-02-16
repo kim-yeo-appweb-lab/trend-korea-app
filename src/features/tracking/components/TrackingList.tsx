@@ -1,8 +1,8 @@
 "use client";
 
+import { EmptyState, Select, TabList } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
 
-import { EmptyState, Select, TabList } from "../../../shared/components";
 import { type TrackingSortOption, type TrackingTab } from "../types";
 import { TrackingIssueCard } from "./TrackingIssueCard";
 import { TrackingSavedEventCard } from "./TrackingSavedEventCard";

@@ -1,5 +1,6 @@
+import { Badge, Breadcrumb } from "@kim-yeo-appweb-lab/ui";
+
 import { IssueDetailRelated, IssueDetailTimeline, IssueTrackButton } from "../../../../features/issues/components";
-import { Badge, Breadcrumb } from "../../../../shared/components";
 import { type Issue, type Tag, type Trigger } from "../../../../shared/types";
 import { issueStatusBadgeMap } from "../../../../shared/utils";
 

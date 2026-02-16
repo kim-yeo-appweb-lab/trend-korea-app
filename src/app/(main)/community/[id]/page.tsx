@@ -1,5 +1,6 @@
+import { Breadcrumb } from "@kim-yeo-appweb-lab/ui";
+
 import { CommentForm, CommentTree, PostActions, PostDetail } from "../../../../features/community/components";
-import { Breadcrumb } from "../../../../shared/components";
 import { type Comment, type Post, type Tag } from "../../../../shared/types";
 
 // Mock 데이터

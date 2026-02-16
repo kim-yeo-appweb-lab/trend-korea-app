@@ -1,9 +1,8 @@
 "use client";
 
+import { Button, Input, TagInput, Textarea } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
 import { useState } from "react";
-
-import { Button, Input, TagInput, Textarea } from "../../../shared/components";
 
 export function PostWriteForm() {
 	const [title, setTitle] = useState("");

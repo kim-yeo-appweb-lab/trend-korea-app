@@ -1,4 +1,5 @@
-import { Badge, Card, CardContent } from "../../../shared/components";
+import { Badge } from "@kim-yeo-appweb-lab/ui";
+
 import { type Issue } from "../../../shared/types";
 import { issueStatusBadgeMap } from "../../../shared/utils";
 
@@ -11,8 +12,8 @@ export function IssueCard({ issue }: IssueCardProps) {
 	const statusBadge = issueStatusBadgeMap[issue.status];
 
 	return (
-		<Card className="hover:border-border-strong transition-colors">
-			<CardContent className="space-y-3">
+		<div className="bg-surface border-border hover:border-border-strong rounded-lg border p-6 transition-colors">
+			<div className="space-y-3">
 				<div className="flex items-center gap-2">
 					<Badge colorScheme={statusBadge.colorScheme} role="status" aria-label={`상태: ${statusBadge.label}`}>
 						{statusBadge.label}
@@ -26,7 +27,7 @@ export function IssueCard({ issue }: IssueCardProps) {
 						<Badge key={tag.id}>{tag.name}</Badge>
 					))}
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	);
 }

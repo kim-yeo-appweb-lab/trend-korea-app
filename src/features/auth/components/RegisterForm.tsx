@@ -1,8 +1,7 @@
 "use client";
 
+import { Button, Input } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
-
-import { Button, Input } from "../../../shared/components";
 
 export function RegisterForm() {
 	const [nickname, setNickname] = useState("");

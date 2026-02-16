@@ -1,5 +1,6 @@
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { SearchResultList } from "../../../features/search/components";
-import { SectionHeader } from "../../../shared/components";
 
 export default function SearchPage() {
 	return (

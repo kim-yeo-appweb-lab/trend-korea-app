@@ -1,5 +1,6 @@
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { TimelineList } from "../../../features/timeline/components";
-import { SectionHeader } from "../../../shared/components";
 
 export default function TimelinePage() {
 	return (

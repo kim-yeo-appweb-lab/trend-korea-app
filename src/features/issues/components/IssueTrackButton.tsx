@@ -1,8 +1,7 @@
 "use client";
 
+import { Button } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
-
-import { Button } from "../../../shared/components";
 
 type IssueTrackButtonProps = {
 	issueId: string;

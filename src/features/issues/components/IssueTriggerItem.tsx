@@ -1,4 +1,6 @@
-import { Badge, SourceLink } from "../../../shared/components";
+import { Badge } from "@kim-yeo-appweb-lab/ui";
+
+import { SourceLink } from "../../../shared/components";
 import { type Trigger } from "../../../shared/types";
 import { formatDateTime } from "../../../shared/utils";
 

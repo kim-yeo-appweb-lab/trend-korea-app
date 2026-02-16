@@ -1,4 +1,5 @@
-import { Badge, Card } from "../../../shared/components";
+import { Badge } from "@kim-yeo-appweb-lab/ui";
+
 import { type TrendCardData } from "../types";
 
 type TrendCardProps = {
@@ -7,7 +8,7 @@ type TrendCardProps = {
 
 export function TrendCard({ item }: TrendCardProps) {
 	return (
-		<Card className="flex items-start gap-3 p-4">
+		<div className="bg-surface border-border flex items-start gap-3 rounded-lg border p-4">
 			<span className="bg-badge-breaking-bg text-badge-breaking flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold">
 				{item.rank}
 			</span>
@@ -23,6 +24,6 @@ export function TrendCard({ item }: TrendCardProps) {
 					))}
 				</div>
 			</div>
-		</Card>
+		</div>
 	);
 }

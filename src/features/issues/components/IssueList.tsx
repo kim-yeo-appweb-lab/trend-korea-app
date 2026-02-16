@@ -1,8 +1,8 @@
 "use client";
 
+import { Select } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
 
-import { Select } from "../../../shared/components";
 import { type Issue, type Tag, type Trigger } from "../../../shared/types";
 import { type IssueFilterState, type IssueSortOption } from "../types";
 import { IssueCard } from "./IssueCard";

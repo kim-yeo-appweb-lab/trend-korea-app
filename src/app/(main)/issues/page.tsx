@@ -1,5 +1,6 @@
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { IssueList } from "../../../features/issues/components";
-import { SectionHeader } from "../../../shared/components";
 
 export default function IssuesPage() {
 	return (

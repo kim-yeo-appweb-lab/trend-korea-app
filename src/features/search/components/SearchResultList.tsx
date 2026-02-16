@@ -1,8 +1,8 @@
 "use client";
 
+import { EmptyState } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
 
-import { EmptyState } from "../../../shared/components";
 import { type SearchResultItem, type SearchTab } from "../types";
 import { RecentSearchList } from "./RecentSearchList";
 import { SearchBar } from "./SearchBar";

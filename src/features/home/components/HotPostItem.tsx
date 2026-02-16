@@ -1,4 +1,5 @@
-import { Badge } from "../../../shared/components";
+import { Badge } from "@kim-yeo-appweb-lab/ui";
+
 import { type HotPostItemData } from "../types";
 
 type HotPostItemProps = {

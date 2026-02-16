@@ -1,4 +1,5 @@
-import { SectionHeader } from "../../../shared/components";
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { type BreakingNewsItemData } from "../types";
 import { BreakingNewsItem } from "./BreakingNewsItem";
 

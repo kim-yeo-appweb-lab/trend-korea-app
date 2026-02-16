@@ -1,5 +1,6 @@
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
+
 import { PostList } from "../../../features/community/components";
-import { SectionHeader } from "../../../shared/components";
 
 export default function CommunityPage() {
 	return (

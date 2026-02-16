@@ -1,4 +1,5 @@
-import { Avatar, Badge, Card, CardContent } from "../../../shared/components";
+import { Avatar, Badge } from "@kim-yeo-appweb-lab/ui";
+
 import { type Post } from "../../../shared/types";
 
 type PostCardProps = {
@@ -7,8 +8,8 @@ type PostCardProps = {
 
 export function PostCard({ post }: PostCardProps) {
 	return (
-		<Card className="hover:border-border-strong transition-colors">
-			<CardContent className="space-y-2">
+		<div className="bg-surface border-border hover:border-border-strong rounded-lg border p-6 transition-colors">
+			<div className="space-y-2">
 				<div className="flex items-center gap-2">
 					<Avatar src={post.authorImage} name={post.isAnonymous ? "익명" : post.authorNickname} size="sm" />
 					<div className="min-w-0 flex-1">
@@ -28,7 +29,7 @@ export function PostCard({ post }: PostCardProps) {
 						<span>댓글 {post.commentCount}</span>
 					</div>
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	);
 }

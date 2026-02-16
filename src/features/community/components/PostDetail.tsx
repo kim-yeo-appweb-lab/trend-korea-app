@@ -1,4 +1,5 @@
-import { Avatar, Badge } from "../../../shared/components";
+import { Avatar, Badge } from "@kim-yeo-appweb-lab/ui";
+
 import { type Post } from "../../../shared/types";
 
 type PostDetailProps = {

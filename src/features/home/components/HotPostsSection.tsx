@@ -1,8 +1,8 @@
 "use client";
 
+import { SectionHeader, TabList } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
 
-import { SectionHeader, TabList } from "../../../shared/components";
 import { type HotPostItemData } from "../types";
 import { HotPostItem } from "./HotPostItem";
 

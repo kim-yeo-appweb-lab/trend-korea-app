@@ -1,8 +1,8 @@
 "use client";
 
+import { Button, Modal } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
 
-import { Button, Modal } from "../../../shared/components";
 import { type Event, type Tag } from "../../../shared/types";
 import { useTimelineFilter } from "../hooks";
 import { TimelineDateHeader } from "./TimelineDateHeader";

@@ -1,8 +1,7 @@
 "use client";
 
+import { TabList } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
-
-import { TabList } from "../../../shared/components";
 
 const CATEGORY_ITEMS = [
 	{ value: "전체", label: "전체" },

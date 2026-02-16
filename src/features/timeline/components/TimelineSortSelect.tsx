@@ -1,6 +1,7 @@
 "use client";
 
-import { Select } from "../../../shared/components";
+import { Select } from "@kim-yeo-appweb-lab/ui";
+
 import { type TimelineSortOption } from "../types";
 
 type TimelineSortSelectProps = {

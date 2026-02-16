@@ -1,8 +1,7 @@
 "use client";
 
+import { Button, Filter, FilterGroup } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
-
-import { Button, Filter, FilterGroup } from "../../../shared/components";
 
 type SearchFilterProps = {
 	className?: string;

@@ -1,9 +1,9 @@
 "use client";
 
+import { Button, Pagination, Select, TabList } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
 import { useState } from "react";
 
-import { Button, Pagination, Select, TabList } from "../../../shared/components";
 import { type Post, type Tag } from "../../../shared/types";
 import { type CommunitySortOption, type CommunityTab } from "../types";
 import { PostCard } from "./PostCard";

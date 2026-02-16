@@ -1,4 +1,5 @@
-import { Avatar } from "../../../shared/components";
+import { Avatar } from "@kim-yeo-appweb-lab/ui";
+
 import { type Comment } from "../../../shared/types";
 
 type CommentItemProps = {

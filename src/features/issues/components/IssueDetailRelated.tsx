@@ -1,5 +1,3 @@
-import { Card, CardContent } from "../../../shared/components";
-
 type RelatedEvent = {
 	id: string;
 	title: string;
@@ -18,12 +16,12 @@ export function IssueDetailRelated({ events }: IssueDetailRelatedProps) {
 			<h2 className="text-fg text-base font-semibold">관련 사건</h2>
 			<div className="space-y-2">
 				{events.map((event) => (
-					<Card key={event.id} className="p-3">
-						<CardContent className="flex items-center justify-between">
+					<div key={event.id} className="bg-surface border-border rounded-lg border p-3">
+						<div className="flex items-center justify-between">
 							<span className="text-fg text-sm">{event.title}</span>
 							<time className="text-fg-muted text-xs">{event.occurredAt}</time>
-						</CardContent>
-					</Card>
+						</div>
+					</div>
 				))}
 			</div>
 		</div>

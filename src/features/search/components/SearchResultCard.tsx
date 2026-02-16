@@ -1,4 +1,5 @@
-import { Badge } from "../../../shared/components";
+import { Badge } from "@kim-yeo-appweb-lab/ui";
+
 import { type SearchResultItem } from "../types";
 
 type SearchResultCardProps = {
