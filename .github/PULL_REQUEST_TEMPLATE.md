@@ -1,16 +1,37 @@
-## 요약
+## Context
 
-<!-- 이 PR에서 무엇을 변경했는지 간단히 설명 -->
+<!-- 변경 배경 또는 해결하려는 문제 (3~5줄 이내) -->
 
-## 변경사항
+Related: #
 
-<!-- 주요 변경 사항을 나열 -->
+---
+
+## Changes
+
+<!-- 핵심 변경 사항만 bullet로 작성 -->
 
 -
+-
+- ***
 
-## 체크리스트
+## Validation
 
-- [ ] `pnpm type:check` 통과
-- [ ] `pnpm lint` 통과
-- [ ] `pnpm build` 성공
-<!-- 추가 검증 항목 -->
+<!-- 검증 결과 또는 방법 -->
+
+- [ ] `pnpm type:check`
+- [ ] `pnpm lint`
+- [ ] `pnpm build`
+- [ ] Tests updated (if applicable)
+
+---
+
+## Impact
+
+- [ ] Feature
+- [ ] Bug Fix
+- [ ] Refactor
+- [ ] Performance
+- [ ] Infra
+- [ ] Breaking Change
+
+If breaking, describe migration steps:

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@kim-yeo-appweb-lab/ui':
+        specifier: ^0.1.0
+        version: 0.1.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -571,6 +574,14 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@kim-yeo-appweb-lab/ui@0.1.0':
+    resolution: {integrity: sha512-9DzbRIfxsaAoKLP7X/uh71LEihMzUplKKJuk3Gv6/liA3VbgNd6H8kkdDt7T9czEWTqkeJ9msy5lUqS0BoDQdg==}
+    engines: {node: '>=24.13.0'}
+    peerDependencies:
+      react: ^19.0.0
+      react-dom: ^19.0.0
+      tailwindcss: ^4.0.0
 
   '@mdx-js/react@3.1.1':
     resolution: {integrity: sha512-f++rKLQgUVYDAtECQ6fn/is15GkEH9+nZPM3MS0RcxVqoTfawHvDlSCH7JbMhAM6uJ32v3eXLvLmLvjGu7PTQw==}
@@ -3567,6 +3578,14 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@kim-yeo-appweb-lab/ui@0.1.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)':
+    dependencies:
+      clsx: 2.1.1
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+      tailwind-merge: 3.4.0
+      tailwindcss: 4.1.18
 
   '@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.3)':
     dependencies:
