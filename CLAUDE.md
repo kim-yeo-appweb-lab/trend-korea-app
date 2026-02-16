@@ -32,6 +32,45 @@
 - 타입: feat, fix, docs, style, refactor, perf, test, chore
 - 작은 작업 단위로 분리하여 커밋
 
+### Git 작업 규칙 ⚠️ CRITICAL - 절대 위반 금지
+
+#### 명시적 요청의 정의
+
+다음 표현**만** Git 명령어 실행 권한으로 인정:
+
+- ✅ "커밋해줘", "commit", "/commit", "커밋"
+- ✅ "push해줘", "원격에 올려줘", "푸시"
+- ✅ "PR 만들어줘", "/create-pr", "풀리퀘"
+
+#### 절대 금지 행동
+
+다음 상황에서 **절대** Git 명령어(add, commit, push, pr) 실행 금지:
+
+- ❌ "계속진행", "다음", "완료", "끝" 같은 모호한 표현
+- ❌ "검증 완료 후 자동으로"
+- ❌ "효율을 위해", "편의상", "당연히"
+- ❌ 사용자가 명령어를 직접 언급하지 않은 모든 경우
+
+#### 필수 확인 절차 (Git 명령어 실행 전)
+
+**반드시** 다음을 확인:
+
+1. [ ] 사용자가 "커밋", "push", "PR" 같은 **명령어 이름을 직접 언급**했는가?
+2. [ ] 모호한 표현("계속", "다음", "완료")을 멋대로 해석하지 않았는가?
+3. [ ] 1%라도 불확실하면 → **"~하시겠습니까?" 질문**
+
+#### 예외 없는 원칙
+
+- **NO EXCEPTIONS**: 어떤 상황에서도 예외 없음
+- **사용자 승인 > 효율성**: 내가 "당연하다"고 생각하는 것 ≠ 사용자 의도
+- **불확실성 원칙**: 확실하지 않으면 질문, 추측 금지
+
+#### 위반 시
+
+- 사용자 신뢰 파괴
+- Git 히스토리 오염
+- 되돌리기 비용 발생
+
 ### Git Hooks (lefthook)
 
 - **pre-commit**: Prettier 포맷팅 → ESLint 검사 (staged 파일 대상)
@@ -247,6 +286,65 @@ import { type IssueStatus } from "../../issues/model"; // ✅ 예외 허용
 ```
 
 **주의**: 타입만 허용, 컴포넌트나 로직은 금지
+
+## UI/UX 가이드라인
+
+### 디자인 시스템 사용
+
+**필수:** 모든 UI 컴포넌트는 `@kim-yeo-appweb-lab/ui`에서 import
+
+```typescript
+// ✅ Good
+import { Button, Input } from "@kim-yeo-appweb-lab/ui";
+
+<Button variant="ghost" size="sm">클릭</Button>
+
+// ❌ Bad: 일반 HTML 요소 직접 사용
+<button>클릭</button>
+```
+
+**링크:** Next.js `Link` 컴포넌트 사용
+
+```typescript
+// ✅ Good
+import Link from "next/link";
+<Link href="/login">로그인</Link>
+
+// ❌ Bad
+<a href="/login">로그인</a>
+```
+
+### 인터랙티브 요소
+
+**애니메이션:**
+
+- 버튼: `hover:scale-[1.02] active:scale-[0.98]`
+- 포커스: `focus:ring-2 focus:ring-primary/20`
+- 에러 메시지: `animate-in fade-in slide-in-from-top-1`
+
+**로딩 상태:**
+
+- 버튼 텍스트 변경: "제출" → "제출 중..."
+- 로딩 중 disabled
+
+**실시간 검증:**
+
+- 이메일: 형식 체크 후 즉시 에러 표시
+- 비밀번호: 강도 계산 후 시각적 피드백
+
+### 접근성
+
+**필수 속성:**
+
+- `aria-label`: 아이콘 버튼, 장식적 요소
+- `aria-invalid`: 에러 상태 입력 필드
+- `aria-describedby`: 에러 메시지 ID 연결
+- `autocomplete`: email, current-password, new-password
+
+**키보드:**
+
+- Tab 순서 자연스럽게
+- Enter로 폼 제출 가능
 
 ## 참고 문서
 
