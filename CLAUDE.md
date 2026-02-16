@@ -77,75 +77,167 @@ PR 생성 시 자동 실행: `type:check` → `lint` → `format:check` → `bui
 /mypage/edit               회원 정보 수정
 ```
 
-## 디렉토리 구조
+## 디렉토리 구조 (FSD 2.0 + Next.js App Router)
 
-`app/`은 라우팅 전용, 비즈니스 로직은 `features/`에 배치
+**Feature-Sliced Design 아키텍처 Best Practice**를 따르며, Next.js App Router와 통합합니다.
+
+> **핵심 원칙**: 라우팅(Next `app/`)은 프레임워크 규칙대로 얇게 두되, 비즈니스 구조는 `src/`의 FSD 레이어로 유지하고, 둘을 "얇은 어댑터"로 연결합니다.
 
 ```
 src/
-├── app/                          # 라우팅 전용 (page, layout, loading, error)
-│   ├── layout.tsx                # 루트 레이아웃
+├── app/                          # FSD: 앱 초기화 레이어 + Next.js 라우팅
+│   ├── providers/                # 전역 Providers (Theme, Auth 등)
+│   ├── config/                   # 앱 설정 (폰트 등)
+│   ├── styles/                   # 글로벌 스타일
+│   ├── index.ts                  # Public API
+│   ├── layout.tsx                # Next.js 루트 레이아웃
 │   ├── not-found.tsx
-│   ├── (auth)/                   # 인증 Route Group (별도 레이아웃)
+│   ├── (auth)/                   # 인증 Route Group
 │   │   ├── layout.tsx
-│   │   ├── login/
-│   │   └── register/
-│   └── (main)/                   # 메인 Route Group (공통 네비게이션)
+│   │   ├── login/page.tsx
+│   │   └── register/page.tsx
+│   └── (main)/                   # 메인 Route Group
 │       ├── layout.tsx
-│       ├── page.tsx              # 메인 홈
+│       ├── page.tsx              # pages/home에서 re-export
 │       ├── timeline/
-│       │   ├── page.tsx
-│       │   └── [date]/
+│       │   ├── page.tsx          # pages/timeline에서 re-export
+│       │   └── [date]/page.tsx
 │       ├── issues/
 │       │   ├── page.tsx
-│       │   └── [id]/
+│       │   └── [id]/page.tsx
 │       ├── community/
 │       │   ├── page.tsx
-│       │   ├── write/
-│       │   └── [id]/
-│       ├── search/
-│       ├── tracking/
+│       │   ├── write/page.tsx
+│       │   └── [id]/page.tsx
+│       ├── search/page.tsx
+│       ├── tracking/page.tsx
 │       └── mypage/
 │           ├── page.tsx
-│           └── edit/
+│           └── edit/page.tsx
 │
-├── features/                     # 기능별 모듈
+├── views/                        # FSD: 뷰 레이어 (라우트별 페이지 컴포넌트)
+│   ├── home/                     # ⚠️ Next.js와의 충돌 방지를 위해 'pages' 대신 'views' 사용
+│   │   ├── ui/HomePage.tsx
+│   │   └── index.ts
 │   ├── timeline/
-│   │   ├── components/           # 타임라인 전용 컴포넌트
-│   │   ├── types/                # 타임라인 타입
-│   │   ├── services/             # API 호출, 데이터 변환
-│   │   └── hooks/                # 타임라인 전용 훅
+│   │   ├── ui/TimelinePage.tsx
+│   │   └── index.ts
+│   ├── timeline-date/
+│   ├── issues/
+│   ├── issue-detail/
+│   ├── community/
+│   ├── community-detail/
+│   ├── community-write/
+│   ├── search/
+│   ├── tracking/
+│   ├── mypage/
+│   ├── mypage-edit/
+│   ├── login/
+│   └── register/
+│
+├── widgets/                      # FSD: 위젯 레이어 (독립적 UI 블록)
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   └── index.ts
+│
+├── features/                     # FSD: 기능 레이어 (비즈니스 기능)
+│   ├── timeline/
+│   │   ├── ui/                   # React 컴포넌트
+│   │   ├── model/                # 타입, 훅, 비즈니스 로직
+│   │   └── index.ts              # Public API
 │   ├── issues/
 │   ├── community/
 │   ├── search/
 │   ├── tracking/
+│   ├── mypage/
+│   ├── home/
 │   └── auth/
 │
-├── shared/                       # 공유 모듈
-│   ├── components/               # 공통 UI (Button, Card, Modal, Filter...)
-│   ├── hooks/                    # 공통 훅 (useDebounce, useInfiniteScroll...)
-│   ├── types/                    # 공통 타입 (Tag, Source, Pagination...)
-│   ├── utils/                    # 유틸리티 (formatDate, cn...)
-│   └── lib/                      # 외부 연동 (API 클라이언트, auth 헬퍼...)
+├── entities/                     # FSD: 엔티티 레이어 (비즈니스 도메인)
+│   ├── event/
+│   │   ├── model/types.ts        # Event, Importance, VerificationStatus
+│   │   └── index.ts
+│   ├── issue/
+│   │   ├── model/types.ts        # Issue, Trigger, IssueStatus
+│   │   └── index.ts
+│   ├── post/
+│   │   ├── model/types.ts
+│   │   └── index.ts
+│   ├── comment/
+│   │   ├── model/types.ts
+│   │   └── index.ts
+│   ├── user/
+│   │   ├── model/types.ts
+│   │   └── index.ts
+│   ├── tag/
+│   │   ├── model/types.ts
+│   │   └── index.ts
+│   └── source/
+│       ├── model/types.ts
+│       └── index.ts
 │
-└── widgets/                      # 조합형 UI 블록 (메인 페이지 섹션 등)
+└── shared/                       # FSD: 공유 레이어 (재사용 가능한 유틸)
+    ├── components/               # 공통 UI
+    ├── hooks/                    # 공통 훅
+    ├── types/                    # 공통 타입 (필터, 페이지네이션 등)
+    ├── utils/                    # 유틸리티 함수
+    └── lib/                      # 외부 라이브러리 연동
 ```
+
+### FSD 세그먼트 구조
+
+각 slice(기능/엔티티) 내부는 표준 세그먼트로 구성:
+
+- **ui/** - React 컴포넌트, 스타일
+- **model/** - 타입, 상태, 훅, 비즈니스 로직
+- **api/** - 백엔드 통신 (필요시)
+- **lib/** - 유틸리티 함수 (필요시)
+- **index.ts** - Public API (외부 노출 인터페이스)
 
 ### 네이밍 규칙
 
-- `app/` 내부: Next.js 파일 컨벤션만 (`page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`)
-- 컴포넌트 파일: PascalCase (`EventCard.tsx`, `IssueFilter.tsx`)
-- 유틸리티/훅: camelCase (`formatDate.ts`, `useDebounce.ts`)
-- 배럴 파일: `index.ts`로 re-export
+- **Next.js 파일**: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx` (Next.js 컨벤션)
+- **컴포넌트 파일**: PascalCase (`EventCard.tsx`, `IssueFilter.tsx`)
+- **유틸리티/훅**: camelCase (`formatDate.ts`, `useDebounce.ts`)
+- **Public API**: 각 slice의 `index.ts`로 외부 인터페이스 노출
+- **세그먼트 폴더**: ui, model, api, lib (FSD 표준)
 
-## 아키텍처 원칙
+## 아키텍처 원칙 (FSD 2.0)
 
-- **`app/`은 라우팅 전용**: page/layout에서는 feature 컴포넌트를 import하여 조합만 수행
-- **Server Component 우선**: 데이터 페칭이 필요한 페이지/레이아웃은 Server Component로 구현
-- **Client Component 최소화**: 인터랙션이 필요한 컴포넌트만 `"use client"` 선언
-- **Feature-based 구조**: 각 기능(feature)은 자체 components, types, services, hooks 보유
+### 레이어 의존성 규칙
+
+```
+app → views → widgets → features → entities → shared
+(상위)                                          (하위)
+```
+
+- **상위 → 하위만 허용**: 상위 레이어는 하위 레이어를 import 가능, 역방향 금지
+- **동일 레이어 내 슬라이스 격리**: 같은 레이어 내 슬라이스 간 직접 import 금지
+  - ❌ `features/timeline` → `features/issues`
+  - ✅ `features/timeline` → `entities/event`
+
+### Public API 패턴
+
+- **모든 slice는 index.ts를 통해 노출**: 내부 구조 캡슐화
+- **내부 파일 직접 import 금지**:
+  - ❌ `from '@/features/timeline/ui/TimelineList'`
+  - ✅ `from '@/features/timeline'` (또는 상대 경로 `from '../../../features/timeline'`)
+
+### 세그먼트 구조
+
+- **ui/**: React 컴포넌트, 스타일
+- **model/**: 타입(`types.ts`), 상태, 훅(`hooks.ts`), 비즈니스 로직
+- **api/**: 백엔드 API 통신 (필요 시)
+- **lib/**: 유틸리티 함수 (필요 시)
+
+### Next.js 통합
+
+- **`app/` 폴더**: Next.js 라우팅 + FSD app 레이어 공존
+  - Route Group: `(auth)`, `(main)` - 라우팅
+  - providers, config, styles - FSD app 레이어 (라우팅 아님)
+- **`pages/` 레이어**: page.tsx는 pages 레이어에서 re-export
+- **Server Component 우선**: 데이터 페칭은 Server Component로, 인터랙션만 Client Component
 - **Route Group 활용**: `(auth)`/`(main)`으로 레이아웃 분리, URL에 영향 없음
-- **공통 필터 체계**: 기간, 분야, 지역, 중요도, 상태 필터는 `shared/types`에서 관리
 
 ## 참고 문서
 

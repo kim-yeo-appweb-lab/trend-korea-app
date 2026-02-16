@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { type TimelineFilterState, type TimelineSortOption } from "../types";
+import { type TimelineFilterState, type TimelineSortOption } from "./types";
 
 export function useTimelineFilter() {
 	const [filter, setFilter] = useState<TimelineFilterState>({
