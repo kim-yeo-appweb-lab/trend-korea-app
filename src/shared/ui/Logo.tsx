@@ -40,7 +40,7 @@ const TEXT_SIZE_MAP = {
 
 export function Logo({ variant = "full", size = "md", disableLink = false, className }: LogoProps) {
 	const content = (
-		<div className={cn("flex items-center gap-2", className)}>
+		<div className={cn("inline-flex items-center gap-2", className)}>
 			{/* 심볼 이미지 */}
 			<div className={cn("relative aspect-square", SIZE_MAP[size])}>
 				<Image
@@ -63,7 +63,7 @@ export function Logo({ variant = "full", size = "md", disableLink = false, class
 	}
 
 	return (
-		<Link href="/" className="transition-opacity hover:opacity-80">
+		<Link href="/" className="flex items-center transition-opacity hover:opacity-80">
 			{content}
 		</Link>
 	);
