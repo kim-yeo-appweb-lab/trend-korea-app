@@ -20,7 +20,7 @@ export function BreakingNewsItem({ item }: BreakingNewsItemProps) {
 			<div className="min-w-0 flex-1">
 				<h3 className="text-fg text-sm leading-snug font-medium">
 					{isHighImportance && (
-						<Badge colorScheme="warning" className="mr-2 align-text-top">
+						<Badge colorScheme="danger" className="mr-2 align-text-top">
 							긴급
 						</Badge>
 					)}

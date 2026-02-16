@@ -29,7 +29,7 @@ export function TimelineEventDetail({ event }: TimelineEventDetailProps) {
 			{event.sources.length > 0 && (
 				<div className="border-border space-y-2 border-t pt-4">
 					<h4 className="text-fg text-sm font-semibold">출처</h4>
-					<div className="space-y-1.5">
+					<div className="flex items-center gap-4 space-y-1.5">
 						{event.sources.map((source) => (
 							<SourceLink key={source.url} source={source} />
 						))}

@@ -14,7 +14,7 @@ export function SourceLink({ source, className }: SourceLinkProps) {
 			target="_blank"
 			rel="noopener noreferrer"
 			className={cn(
-				"text-fg-secondary hover:text-primary inline-flex items-center gap-1 text-sm transition-colors",
+				"text-fg-secondary hover:text-primary m-0 inline-flex items-center gap-1 text-sm transition-colors",
 				className
 			)}
 		>

@@ -1,4 +1,4 @@
-import { Footer, Header } from "../../widgets";
+import { Footer, Header } from "../../shared/layouts";
 
 export default function MainLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (

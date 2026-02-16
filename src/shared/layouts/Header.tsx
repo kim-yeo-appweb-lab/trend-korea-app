@@ -4,7 +4,7 @@ import { Button, cn, ThemeToggle } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Logo } from "../shared/ui";
+import { Logo } from "../ui";
 
 const NAV_ITEMS = [
 	{ label: "홈", href: "/" },
