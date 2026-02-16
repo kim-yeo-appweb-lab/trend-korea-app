@@ -144,9 +144,7 @@ src/
 │   │   ├── search/
 │   │   ├── tracking/
 │   │   └── mypage/
-│   ├── providers/                 # 전역 Providers
-│   ├── config/                    # 앱 설정
-│   └── styles/                    # 글로벌 스타일
+│   └── layout.tsx                 # 루트 레이아웃 (fonts, ThemeProvider)
 │
 ├── features/                      # 도메인 기능 (독립적)
 │   ├── timeline/
@@ -180,22 +178,26 @@ src/
 │   ├── tracking/
 │   └── home/
 │
-├── shared/                        # 도메인 중립 (역할 제한)
-│   ├── ui/                        # UI primitives만
-│   │   ├── Logo.tsx
-│   │   ├── SourceLink.tsx         # Source는 공통 타입
-│   │   └── index.ts
-│   ├── lib/utils/                 # 도메인 없는 유틸
-│   │   ├── date.ts                # formatDate 등
-│   │   └── index.ts
-│   └── types/                     # 공통 타입만
-│       ├── common.ts              # Tag, Source (공통!)
-│       ├── filter.ts              # PeriodFilter 등
-│       └── index.ts
-│
-└── widgets/                       # 전역 레이아웃
-    ├── Header.tsx
-    └── Footer.tsx
+└── shared/                        # 도메인 중립 (역할 제한)
+    ├── layouts/                   # 전역 레이아웃
+    │   ├── Header.tsx
+    │   ├── Footer.tsx
+    │   └── index.ts
+    ├── ui/                        # UI primitives만
+    │   ├── Logo.tsx
+    │   ├── SourceLink.tsx         # Source는 공통 타입
+    │   └── index.ts
+    ├── utils/                     # 도메인 없는 유틸
+    │   ├── date.ts                # formatDate 등
+    │   ├── badgeMapping.ts        # 공통 Badge 타입
+    │   └── index.ts
+    ├── types/                     # 공통 타입만
+    │   ├── common.ts              # Tag, Source (공통!)
+    │   ├── filter.ts              # PeriodFilter 등
+    │   └── index.ts
+    └── styles/                    # 글로벌 스타일
+        ├── globals.css
+        └── custom.css
 ```
 
 ### Feature 세그먼트 구조
