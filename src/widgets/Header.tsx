@@ -1,10 +1,10 @@
 "use client";
 
+import { Button, cn, ThemeToggle } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Logo, ThemeToggle } from "../shared/components";
-import { cn } from "../shared/utils";
+import { Logo } from "../shared/ui";
 
 const NAV_ITEMS = [
 	{ label: "홈", href: "/" },
@@ -78,11 +78,7 @@ export function Header() {
 
 				{/* 유저 영역 */}
 				<div className="flex items-center gap-3">
-					<button
-						type="button"
-						className="text-fg-muted hover:bg-hover-bg rounded-md p-2 transition-colors lg:hidden"
-						aria-label="검색"
-					>
+					<Button variant="ghost" size="sm" className="p-2 lg:hidden" aria-label="검색">
 						<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
@@ -91,7 +87,7 @@ export function Header() {
 								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
 							/>
 						</svg>
-					</button>
+					</Button>
 					<ThemeToggle />
 					<Link
 						href="/login"
