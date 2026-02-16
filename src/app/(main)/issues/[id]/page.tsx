@@ -5,7 +5,8 @@ import {
 	IssueDetailRelated,
 	IssueDetailTimeline,
 	IssueTrackButton,
-	type Trigger} from "../../../../features/issues";
+	type Trigger
+} from "../../../../features/issues";
 import { issueStatusBadgeMap } from "../../../../features/issues/utils/badgeMapping";
 import { type Tag } from "../../../../shared/types/common";
 
