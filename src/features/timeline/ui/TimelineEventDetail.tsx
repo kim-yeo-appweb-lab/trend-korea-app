@@ -1,8 +1,8 @@
 import { Badge } from "@kim-yeo-appweb-lab/ui";
 
-import { type Event } from "../../../entities/event";
 import { SourceLink } from "../../../shared/ui";
 import { importanceBadgeMap } from "../../../shared/utils";
+import { type Event } from "../model";
 
 type TimelineEventDetailProps = {
 	event: Event;

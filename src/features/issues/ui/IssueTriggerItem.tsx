@@ -1,8 +1,8 @@
 import { Badge } from "@kim-yeo-appweb-lab/ui";
 
-import { type Trigger } from "../../../entities/issue";
 import { SourceLink } from "../../../shared/ui";
 import { formatDateTime } from "../../../shared/utils";
+import { type Trigger } from "../model";
 
 type IssueTriggerItemProps = {
 	trigger: Trigger;
