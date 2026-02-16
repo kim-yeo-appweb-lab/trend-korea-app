@@ -1,9 +1,9 @@
 "use client";
 
+import { Button } from "@kim-yeo-appweb-lab/ui";
 import { useLayoutEffect, useState } from "react";
 
 import { useTheme } from "../hooks/useTheme";
-import { Button } from "./Button";
 
 export function ThemeToggle() {
 	const { resolvedTheme, setTheme } = useTheme();

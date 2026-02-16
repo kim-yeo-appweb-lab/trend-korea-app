@@ -1,19 +1,37 @@
-export { Avatar } from "./Avatar";
-export { Badge } from "./Badge";
-export { Breadcrumb } from "./Breadcrumb";
-export { Button } from "./Button";
-export { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./Card";
-export { EmptyState } from "./EmptyState";
-export { Filter, FilterGroup } from "./Filter";
-export { Input } from "./Input";
+/* ═══════════════════════════════════════════════════════════════════
+ * kim-yeo-ui 디자인 시스템 컴포넌트
+ * ═══════════════════════════════════════════════════════════════════ */
+import { Card as KimYeoCard } from "@kim-yeo-appweb-lab/ui";
+
+export {
+	Avatar,
+	Badge,
+	Breadcrumb,
+	Button,
+	EmptyState,
+	Filter,
+	FilterGroup,
+	Input,
+	Modal,
+	Pagination,
+	SectionHeader,
+	Select,
+	Skeleton,
+	TabList,
+	TagInput,
+	Textarea
+} from "@kim-yeo-appweb-lab/ui";
+
+/* Card compound component를 개별 export로 분리 */
+export const Card = KimYeoCard;
+export const CardHeader = KimYeoCard.Header;
+export const CardTitle = KimYeoCard.Title;
+export const CardContent = KimYeoCard.Content;
+export const CardFooter = KimYeoCard.Footer;
+
+/* ═══════════════════════════════════════════════════════════════════
+ * 프로젝트 전용 컴포넌트
+ * ═══════════════════════════════════════════════════════════════════ */
 export { Logo } from "./Logo";
-export { Modal } from "./Modal";
-export { Pagination } from "./Pagination";
-export { SectionHeader } from "./SectionHeader";
-export { Select } from "./Select";
-export { Skeleton } from "./Skeleton";
 export { SourceLink } from "./SourceLink";
-export { TabList } from "./Tab";
-export { TagInput } from "./TagInput";
-export { Textarea } from "./Textarea";
 export { ThemeToggle } from "./ThemeToggle";

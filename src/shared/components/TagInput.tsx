@@ -1,9 +1,9 @@
 "use client";
 
+import { Badge } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
 
 import { cn } from "../utils";
-import { Badge } from "./Badge";
 
 type TagInputProps = {
 	value: string[];
