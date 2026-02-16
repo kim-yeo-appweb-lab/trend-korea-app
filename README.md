@@ -62,3 +62,4 @@ src/
 ## Documentation
 
 - [PRD](./docs/PRD.md) - 제품 요구사항 정의서
+- [Git 브랜칭 전략](./docs/BRANCH_STRATEGY.md) - Git 브랜칭 및 워크플로우 가이드

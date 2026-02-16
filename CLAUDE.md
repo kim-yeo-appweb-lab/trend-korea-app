@@ -150,3 +150,4 @@ src/
 ## 참고 문서
 
 - `docs/PRD.md` - 상세 제품 요구사항
+- `docs/BRANCH_STRATEGY.md` - Git 브랜칭 및 워크플로우 가이드
