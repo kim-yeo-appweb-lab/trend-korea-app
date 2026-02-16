@@ -24,14 +24,10 @@
 .DS_Store
 *.pem
 
-# storybook
-/storybook-static
-
 # tools
 .serena
 .vscode/*
 !.vscode/settings.json
-debug-storybook.log
 
 # debug
 npm-debug.log*
