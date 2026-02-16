@@ -1,4 +1,6 @@
-import { Avatar, Card, CardContent } from "../../../shared/components";
+import { Avatar } from "@kim-yeo-appweb-lab/ui";
+
+import { Card, CardContent } from "../../../shared/components";
 
 type ProfileSectionProps = {
 	nickname: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "../../../shared/components";
+import { Button } from "@kim-yeo-appweb-lab/ui";
 
 export function AccountActions() {
 	function handleLogout() {

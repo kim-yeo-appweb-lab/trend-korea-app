@@ -30,7 +30,7 @@ export const CardContent = KimYeoCard.Content;
 export const CardFooter = KimYeoCard.Footer;
 
 /* ═══════════════════════════════════════════════════════════════════
- * 프로젝트 전용 컴포넌트
+ * 프로젝트 전용 컴포넌트 (커스텀 ThemeProvider와 함께 사용)
  * ═══════════════════════════════════════════════════════════════════ */
 export { Logo } from "./Logo";
 export { SourceLink } from "./SourceLink";

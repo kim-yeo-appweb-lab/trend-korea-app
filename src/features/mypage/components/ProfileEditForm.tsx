@@ -1,8 +1,8 @@
 "use client";
 
+import { Avatar, Button, Input } from "@kim-yeo-appweb-lab/ui";
 import { useState } from "react";
 
-import { Avatar, Button, Input } from "../../../shared/components";
 import { SocialLinkItem } from "./SocialLinkItem";
 
 export function ProfileEditForm() {
