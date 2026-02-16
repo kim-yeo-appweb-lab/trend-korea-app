@@ -1,7 +1,8 @@
-import { IssueList } from "../../../features/issues/components";
-import { SectionHeader } from "../../../shared/components";
+import { SectionHeader } from "@kim-yeo-appweb-lab/ui";
 
-export default function IssuesPage() {
+import { IssueList } from "../../../features/issues";
+
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-7xl px-4 py-6">
 			<SectionHeader title="이슈 추적" />

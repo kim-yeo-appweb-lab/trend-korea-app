@@ -1,11 +1,12 @@
-import { TimelineList } from "../../../../features/timeline/components";
-import { Breadcrumb, SectionHeader } from "../../../../shared/components";
+import { Breadcrumb, SectionHeader } from "@kim-yeo-appweb-lab/ui";
 
-type TimelineDatePageProps = {
+import { TimelineList } from "../../../../features/timeline";
+
+type PageProps = {
 	params: Promise<{ date: string }>;
 };
 
-export default async function TimelineDatePage({ params }: TimelineDatePageProps) {
+export default async function Page({ params }: PageProps) {
 	const { date } = await params;
 	const formattedDate = date.replace(/-/g, ".");
 

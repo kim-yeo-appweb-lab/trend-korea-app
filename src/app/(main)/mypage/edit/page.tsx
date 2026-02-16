@@ -1,7 +1,8 @@
-import { ProfileEditForm } from "../../../../features/mypage/components";
-import { Breadcrumb, Card } from "../../../../shared/components";
+import { Breadcrumb } from "@kim-yeo-appweb-lab/ui";
 
-export default function MyPageEditPage() {
+import { ProfileEditForm } from "../../../../features/mypage";
+
+export default function Page() {
 	return (
 		<div className="mx-auto max-w-lg px-4 py-6">
 			<Breadcrumb
@@ -9,9 +10,9 @@ export default function MyPageEditPage() {
 			/>
 			<div className="mt-6">
 				<h1 className="text-fg text-xl font-bold">회원정보 수정</h1>
-				<Card className="mt-4 p-6">
+				<div className="bg-surface border-border mt-4 rounded-lg border p-6">
 					<ProfileEditForm />
-				</Card>
+				</div>
 			</div>
 		</div>
 	);

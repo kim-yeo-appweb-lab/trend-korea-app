@@ -1,6 +1,5 @@
+import { Button, EmptyState } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
-
-import { Button, EmptyState } from "../shared/components";
 
 export default function NotFoundPage() {
 	return (

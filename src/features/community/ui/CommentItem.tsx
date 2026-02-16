@@ -1,0 +1,35 @@
+"use client";
+
+import { Avatar, Button } from "@kim-yeo-appweb-lab/ui";
+
+import { type Comment } from "../model";
+
+type CommentItemProps = {
+	comment: Comment;
+	depth?: number;
+};
+
+export function CommentItem({ comment, depth = 0 }: CommentItemProps) {
+	return (
+		<div className={depth > 0 ? "border-border ml-8 border-l-2 pl-4" : ""}>
+			<div className="flex gap-3 py-3">
+				<Avatar src={null} name={comment.authorNickname} size="sm" />
+				<div className="min-w-0 flex-1 space-y-1">
+					<div className="flex items-center gap-2">
+						<span className="text-fg text-sm font-medium">{comment.authorNickname}</span>
+						<time className="text-fg-muted text-xs">{comment.createdAt}</time>
+					</div>
+					<p className="text-fg-secondary text-sm">{comment.content}</p>
+					<div className="text-fg-muted flex items-center gap-3 text-xs">
+						<Button variant="ghost" size="sm" className="hover:text-primary transition-colors">
+							좋아요 {comment.likeCount}
+						</Button>
+						<Button variant="ghost" size="sm" className="hover:text-primary transition-colors">
+							답글
+						</Button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}

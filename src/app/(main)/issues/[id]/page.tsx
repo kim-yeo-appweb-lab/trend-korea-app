@@ -1,7 +1,14 @@
-import { IssueDetailRelated, IssueDetailTimeline, IssueTrackButton } from "../../../../features/issues/components";
-import { Badge, Breadcrumb } from "../../../../shared/components";
-import { type Issue, type Tag, type Trigger } from "../../../../shared/types";
-import { issueStatusBadgeMap } from "../../../../shared/utils";
+import { Badge, Breadcrumb } from "@kim-yeo-appweb-lab/ui";
+
+import {
+	type Issue,
+	IssueDetailRelated,
+	IssueDetailTimeline,
+	IssueTrackButton,
+	type Trigger
+} from "../../../../features/issues";
+import { issueStatusBadgeMap } from "../../../../features/issues/utils/badgeMapping";
+import { type Tag } from "../../../../shared/types/common";
 
 // Mock 데이터 (상세 페이지용)
 const MOCK_TAGS: Tag[] = [
@@ -55,11 +62,11 @@ const MOCK_RELATED_EVENTS = [
 	{ id: "e7", title: "기획재정부, 추경안 국회 제출", occurredAt: "2026.02.12" }
 ];
 
-type IssueDetailPageProps = {
+type PageProps = {
 	params: Promise<{ id: string }>;
 };
 
-export default async function IssueDetailPage({ params }: IssueDetailPageProps) {
+export default async function Page({ params }: PageProps) {
 	const { id } = await params;
 	const statusBadge = issueStatusBadgeMap[MOCK_ISSUE.status];
 
