@@ -27,10 +27,10 @@
 # storybook
 /storybook-static
 
-# tools & design
+# tools
 .serena
-.design
-.vscode
+.vscode/*
+!.vscode/settings.json
 debug-storybook.log
 
 # debug
