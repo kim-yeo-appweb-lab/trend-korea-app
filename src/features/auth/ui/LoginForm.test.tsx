@@ -1,11 +1,13 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { type ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { AuthProvider } from "../model/AuthContext";
 import { LoginForm } from "./LoginForm";
 
 const mockPush = vi.fn();
+const mockRefresh = vi.fn();
 
 vi.mock("next/navigation", () => ({
 	useRouter: () => ({
@@ -13,22 +15,32 @@ vi.mock("next/navigation", () => ({
 		replace: vi.fn(),
 		back: vi.fn(),
 		forward: vi.fn(),
-		refresh: vi.fn(),
+		refresh: mockRefresh,
 		prefetch: vi.fn()
 	})
 }));
 
+const createTestQueryClient = () =>
+	new QueryClient({
+		defaultOptions: {
+			queries: { retry: false },
+			mutations: { retry: false }
+		}
+	});
+
 const renderLoginForm = () => {
-	return render(
-		<AuthProvider>
-			<LoginForm />
-		</AuthProvider>
+	const queryClient = createTestQueryClient();
+	const Wrapper = ({ children }: { children: ReactNode }) => (
+		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 	);
+
+	return render(<LoginForm />, { wrapper: Wrapper });
 };
 
 describe("LoginForm", () => {
 	beforeEach(() => {
 		mockPush.mockClear();
+		mockRefresh.mockClear();
 	});
 
 	it("이메일과 비밀번호 입력 필드가 렌더링된다", () => {

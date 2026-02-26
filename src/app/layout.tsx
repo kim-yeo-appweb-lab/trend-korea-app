@@ -1,11 +1,13 @@
 import "../shared/styles/globals.css";
 
 import { ThemeProvider } from "@kim-yeo-appweb-lab/ui";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 
-import { AuthProvider, type User } from "../features/auth";
+import { authQueries, type User } from "../features/auth";
+import { QueryProvider } from "../shared/lib";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -91,13 +93,18 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const queryClient = new QueryClient();
 	const initialUser = await getInitialUser();
+
+	if (initialUser) {
+		queryClient.setQueryData(authQueries.currentUser().queryKey, initialUser);
+	}
 
 	return (
 		<html lang="ko" suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<ThemeProvider>
-					<AuthProvider initialUser={initialUser}>{children}</AuthProvider>
+					<QueryProvider dehydratedState={dehydrate(queryClient)}>{children}</QueryProvider>
 				</ThemeProvider>
 			</body>
 		</html>

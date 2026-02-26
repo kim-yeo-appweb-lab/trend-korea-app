@@ -3,23 +3,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { useAuthActions } from "../model/hooks";
+import { useLogin } from "../model/hooks";
 import { type LoginFormValues, loginSchema } from "../model/schemas";
 import { PasswordInput } from "./PasswordInput";
 
 export function LoginForm() {
-	const router = useRouter();
-	const { login } = useAuthActions();
-	const [serverError, setServerError] = useState("");
+	const loginMutation = useLogin();
 
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isSubmitting }
+		formState: { errors }
 	} = useForm<LoginFormValues>({
 		resolver: zodResolver(loginSchema),
 		defaultValues: {
@@ -28,15 +24,8 @@ export function LoginForm() {
 		}
 	});
 
-	const onSubmit = async (data: LoginFormValues) => {
-		setServerError("");
-		const result = await login(data);
-
-		if (result.success) {
-			router.push("/");
-		} else if (result.error) {
-			setServerError(result.error);
-		}
+	const onSubmit = (data: LoginFormValues) => {
+		loginMutation.mutate(data);
 	};
 
 	return (
@@ -81,19 +70,19 @@ export function LoginForm() {
 				)}
 			</div>
 
-			{serverError && (
+			{loginMutation.error && (
 				<p className="text-danger-500 animate-in fade-in slide-in-from-top-1 text-center text-sm" role="alert">
-					{serverError}
+					{loginMutation.error.message}
 				</p>
 			)}
 
 			<Button
 				type="submit"
 				className="w-full transition-transform hover:scale-[1.02] active:scale-[0.98]"
-				disabled={isSubmitting}
-				aria-busy={isSubmitting}
+				disabled={loginMutation.isPending}
+				aria-busy={loginMutation.isPending}
 			>
-				{isSubmitting ? "로그인 중..." : "로그인"}
+				{loginMutation.isPending ? "로그인 중..." : "로그인"}
 			</Button>
 
 			<p className="text-fg-muted text-center text-sm">
