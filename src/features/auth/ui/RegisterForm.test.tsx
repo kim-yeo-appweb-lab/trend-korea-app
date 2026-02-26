@@ -1,11 +1,13 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { type ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { AuthProvider } from "../model/AuthContext";
 import { RegisterForm } from "./RegisterForm";
 
 const mockPush = vi.fn();
+const mockRefresh = vi.fn();
 
 vi.mock("next/navigation", () => ({
 	useRouter: () => ({
@@ -13,22 +15,32 @@ vi.mock("next/navigation", () => ({
 		replace: vi.fn(),
 		back: vi.fn(),
 		forward: vi.fn(),
-		refresh: vi.fn(),
+		refresh: mockRefresh,
 		prefetch: vi.fn()
 	})
 }));
 
+const createTestQueryClient = () =>
+	new QueryClient({
+		defaultOptions: {
+			queries: { retry: false },
+			mutations: { retry: false }
+		}
+	});
+
 const renderRegisterForm = () => {
-	return render(
-		<AuthProvider>
-			<RegisterForm />
-		</AuthProvider>
+	const queryClient = createTestQueryClient();
+	const Wrapper = ({ children }: { children: ReactNode }) => (
+		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 	);
+
+	return render(<RegisterForm />, { wrapper: Wrapper });
 };
 
 describe("RegisterForm", () => {
 	beforeEach(() => {
 		mockPush.mockClear();
+		mockRefresh.mockClear();
 	});
 
 	it("닉네임, 이메일, 비밀번호, 비밀번호 확인 필드와 회원가입 버튼이 렌더링된다", () => {
