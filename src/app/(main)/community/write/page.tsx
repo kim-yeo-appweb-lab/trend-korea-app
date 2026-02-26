@@ -1,8 +1,30 @@
-import { Breadcrumb } from "@kim-yeo-appweb-lab/ui";
+"use client";
 
+import { Breadcrumb } from "@kim-yeo-appweb-lab/ui";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+import { useCurrentUser } from "../../../../features/auth";
 import { PostWriteForm } from "../../../../features/community";
 
 export default function Page() {
+	const { data: currentUser, isLoading } = useCurrentUser();
+	const router = useRouter();
+
+	useEffect(() => {
+		if (!isLoading && !currentUser) {
+			router.push("/login");
+		}
+	}, [isLoading, currentUser, router]);
+
+	if (isLoading || !currentUser) {
+		return (
+			<div className="mx-auto max-w-3xl px-4 py-6">
+				<div className="text-fg-muted flex items-center justify-center py-12 text-sm">로딩 중...</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="mx-auto max-w-3xl px-4 py-6">
 			<Breadcrumb

@@ -1,9 +1,10 @@
 import { Avatar, Badge } from "@kim-yeo-appweb-lab/ui";
 
-import { type Post } from "../model";
+import { formatDateTime } from "../../../shared/utils/date";
+import { type PostDetail as PostDetailType } from "../model";
 
 type PostDetailProps = {
-	post: Post;
+	post: PostDetailType;
 };
 
 export function PostDetail({ post }: PostDetailProps) {
@@ -14,7 +15,7 @@ export function PostDetail({ post }: PostDetailProps) {
 				<Avatar src={post.authorImage} name={post.isAnonymous ? "익명" : post.authorNickname} size="md" />
 				<div>
 					<span className="text-fg text-sm font-medium">{post.isAnonymous ? "익명" : post.authorNickname}</span>
-					<time className="text-fg-muted ml-2 text-xs">{post.createdAt}</time>
+					<time className="text-fg-muted ml-2 text-xs">{formatDateTime(post.createdAt)}</time>
 				</div>
 			</div>
 			<div className="prose prose-sm text-fg-secondary max-w-none leading-relaxed whitespace-pre-wrap">
