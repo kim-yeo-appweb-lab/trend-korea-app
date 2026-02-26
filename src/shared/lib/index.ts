@@ -7,4 +7,6 @@ export {
 	REFRESH_TOKEN_KEY,
 	setAuthCookies
 } from "./cookies";
+export { makeQueryClient } from "./makeQueryClient";
+export { QueryProvider } from "./QueryProvider";
 export { serverApiClient } from "./serverApiClient";
