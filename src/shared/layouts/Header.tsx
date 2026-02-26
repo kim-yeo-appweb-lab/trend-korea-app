@@ -1,6 +1,7 @@
 "use client";
 
 import { cn, ThemeToggle } from "@kim-yeo-appweb-lab/ui";
+import { Menu, Search, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -83,19 +84,7 @@ export function Header() {
 								placeholder="주요 이슈를 검색하세요"
 								className="border-border bg-surface-alt text-fg placeholder:text-fg-muted focus:border-ring focus:bg-surface w-full rounded-full border py-2 pr-4 pl-10 text-sm transition-colors outline-none"
 							/>
-							<svg
-								className="text-fg-muted absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-								/>
-							</svg>
+							<Search className="text-fg-muted absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
 						</div>
 					</div>
 
@@ -135,9 +124,7 @@ export function Header() {
 							aria-controls="mobile-menu"
 							className="text-fg-secondary hover:text-fg rounded-md p-1.5 transition-colors md:hidden"
 						>
-							<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-							</svg>
+							<Menu className="h-5 w-5" />
 						</button>
 					</div>
 				</div>
@@ -174,9 +161,7 @@ export function Header() {
 						aria-label="메뉴 닫기"
 						className="text-fg-secondary hover:text-fg rounded-md p-1.5 transition-colors"
 					>
-						<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-						</svg>
+						<X className="h-5 w-5" />
 					</button>
 				</div>
 
