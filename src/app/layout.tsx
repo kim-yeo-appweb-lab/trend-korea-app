@@ -3,6 +3,9 @@ import "../shared/styles/globals.css";
 import { ThemeProvider } from "@kim-yeo-appweb-lab/ui";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { cookies } from "next/headers";
+
+import { AuthProvider, type User } from "../features/auth";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -60,15 +63,42 @@ export const viewport: Viewport = {
 	]
 };
 
-export default function RootLayout({
+const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:8000";
+
+const getInitialUser = async (): Promise<User | null> => {
+	try {
+		const cookieStore = await cookies();
+		const accessToken = cookieStore.get("access_token")?.value;
+
+		if (!accessToken) return null;
+
+		const response = await fetch(`${API_BASE_URL}/api/v1/users/me`, {
+			headers: { Authorization: `Bearer ${accessToken}` },
+			cache: "no-store"
+		});
+
+		if (!response.ok) return null;
+
+		const data = await response.json();
+		return data.data as User;
+	} catch {
+		return null;
+	}
+};
+
+export default async function RootLayout({
 	children
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const initialUser = await getInitialUser();
+
 	return (
 		<html lang="ko" suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<ThemeProvider>{children}</ThemeProvider>
+				<ThemeProvider>
+					<AuthProvider initialUser={initialUser}>{children}</AuthProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);
