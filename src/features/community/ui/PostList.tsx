@@ -4,134 +4,8 @@ import { Button, Pagination, Select, TabList } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
 import { useState } from "react";
 
-import { type Tag } from "../../../shared/types/common";
-import { type CommunitySortOption, type CommunityTab, type Post } from "../model";
+import { type CommunitySortOption, type CommunityTab, usePostList } from "../model";
 import { PostCard } from "./PostCard";
-
-// Mock 태그
-const MOCK_TAGS: Tag[] = [
-	{ id: "t1", name: "정치", type: "category", slug: "politics" },
-	{ id: "t2", name: "사회", type: "category", slug: "society" },
-	{ id: "t3", name: "경제", type: "category", slug: "economy" },
-	{ id: "t4", name: "자유", type: "category", slug: "free" },
-	{ id: "t5", name: "유머", type: "category", slug: "humor" }
-];
-
-// Mock 게시글
-const MOCK_POSTS: Post[] = [
-	{
-		id: "p1",
-		authorId: "u1",
-		authorNickname: "시민기자",
-		authorImage: undefined,
-		title: "추경안 통과에 대한 시민 반응 정리",
-		content: "오늘 국회에서 추경안이 통과되었습니다...",
-		tags: [MOCK_TAGS[0]],
-		isAnonymous: false,
-		likeCount: 45,
-		dislikeCount: 3,
-		commentCount: 12,
-		createdAt: "2시간 전"
-	},
-	{
-		id: "p2",
-		authorId: "u2",
-		authorNickname: "경제분석가",
-		authorImage: undefined,
-		title: "기준금리 동결이 부동산 시장에 미치는 영향",
-		content: "한국은행의 기준금리 동결 결정이...",
-		tags: [MOCK_TAGS[2]],
-		isAnonymous: false,
-		likeCount: 89,
-		dislikeCount: 5,
-		commentCount: 23,
-		createdAt: "3시간 전"
-	},
-	{
-		id: "p3",
-		authorId: "u3",
-		authorNickname: "익명",
-		authorImage: undefined,
-		title: "대중교통 요금 인상, 정말 불가피한가?",
-		content: "서울시의 대중교통 요금 인상 발표에 대해...",
-		tags: [MOCK_TAGS[1]],
-		isAnonymous: true,
-		likeCount: 156,
-		dislikeCount: 12,
-		commentCount: 67,
-		createdAt: "5시간 전"
-	},
-	{
-		id: "p4",
-		authorId: "u4",
-		authorNickname: "테크러버",
-		authorImage: undefined,
-		title: "삼성 AI 반도체 투자, 글로벌 경쟁력 확보할 수 있을까",
-		content: "삼성전자가 AI 반도체에 10조원 투자를...",
-		tags: [MOCK_TAGS[2]],
-		isAnonymous: false,
-		likeCount: 34,
-		dislikeCount: 2,
-		commentCount: 8,
-		createdAt: "6시간 전"
-	},
-	{
-		id: "p5",
-		authorId: "u5",
-		authorNickname: "법률전문가",
-		authorImage: undefined,
-		title: "플랫폼 노동자 판결의 법적 의미와 영향",
-		content: "대법원 전원합의체의 이번 판결은...",
-		tags: [MOCK_TAGS[0], MOCK_TAGS[1]],
-		isAnonymous: false,
-		likeCount: 78,
-		dislikeCount: 1,
-		commentCount: 19,
-		createdAt: "8시간 전"
-	},
-	{
-		id: "p6",
-		authorId: "u6",
-		authorNickname: "날씨요정",
-		authorImage: undefined,
-		title: "폭설 피해 상황 실시간 정리",
-		content: "중부지방 대설 특보가 발령된 후...",
-		tags: [MOCK_TAGS[1]],
-		isAnonymous: false,
-		likeCount: 201,
-		dislikeCount: 0,
-		commentCount: 45,
-		createdAt: "10시간 전"
-	},
-	{
-		id: "p7",
-		authorId: "u7",
-		authorNickname: "익명",
-		authorImage: undefined,
-		title: "오늘자 웃긴 뉴스 모음",
-		content: "심각한 뉴스만 보다가 가벼운 것도...",
-		tags: [MOCK_TAGS[4]],
-		isAnonymous: true,
-		likeCount: 312,
-		dislikeCount: 15,
-		commentCount: 89,
-		createdAt: "12시간 전"
-	},
-	{
-		id: "p8",
-		authorId: "u8",
-		authorNickname: "정치관찰자",
-		authorImage: undefined,
-		title: "이번 주 국회 주요 일정 정리",
-		content: "이번 주 국회에서 예정된 주요 일정을...",
-		tags: [MOCK_TAGS[0]],
-		isAnonymous: false,
-		likeCount: 67,
-		dislikeCount: 4,
-		commentCount: 15,
-		createdAt: "1일 전"
-	}
-];
 
 const TAB_ITEMS = [
 	{ value: "latest" as const, label: "최신" },
@@ -145,23 +19,41 @@ const SORT_OPTIONS = [
 	{ value: "comments" as const, label: "댓글순" }
 ];
 
+const POSTS_PER_PAGE = 10;
+
 export function PostList() {
 	const [tab, setTab] = useState<CommunityTab>("latest");
 	const [sort, setSort] = useState<CommunitySortOption>("latest");
 	const [currentPage, setCurrentPage] = useState(1);
+	const [cursors, setCursors] = useState<Record<number, string>>({});
 
-	function handleTabChange(value: CommunityTab) {
+	const { data, isLoading, isError } = usePostList({
+		tab,
+		sortBy: sort === "popular" ? "likeCount" : sort === "comments" ? "commentCount" : "createdAt",
+		limit: POSTS_PER_PAGE,
+		cursor: cursors[currentPage]
+	});
+
+	const handleTabChange = (value: CommunityTab) => {
 		setTab(value);
 		setCurrentPage(1);
-	}
+		setCursors({});
+	};
 
-	function handleSortChange(value: CommunitySortOption) {
+	const handleSortChange = (value: CommunitySortOption) => {
 		setSort(value);
-	}
+		setCurrentPage(1);
+		setCursors({});
+	};
 
-	function handlePageChange(page: number) {
+	const handlePageChange = (page: number) => {
+		if (page > currentPage && data?.cursor.next) {
+			setCursors((prev) => ({ ...prev, [page]: data.cursor.next! }));
+		}
 		setCurrentPage(page);
-	}
+	};
+
+	const totalPages = data?.cursor.hasMore ? currentPage + 1 : currentPage;
 
 	return (
 		<div className="space-y-6">
@@ -175,15 +67,35 @@ export function PostList() {
 				</div>
 			</div>
 
-			<div className="space-y-4">
-				{MOCK_POSTS.map((post) => (
-					<a key={post.id} href={`/community/${post.id}`} className="block">
-						<PostCard post={post} />
-					</a>
-				))}
-			</div>
+			{isLoading && (
+				<div className="text-fg-muted flex items-center justify-center py-12 text-sm">게시글을 불러오는 중...</div>
+			)}
 
-			<Pagination currentPage={currentPage} totalPages={5} onPageChange={handlePageChange} />
+			{isError && (
+				<div className="text-danger flex items-center justify-center py-12 text-sm">
+					게시글을 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.
+				</div>
+			)}
+
+			{data && data.items.length === 0 && (
+				<div className="text-fg-muted flex flex-col items-center justify-center gap-2 py-12 text-sm">
+					<p>아직 게시글이 없습니다.</p>
+					<Button size="sm" variant="secondary" asChild>
+						<Link href="/community/write">첫 글 작성하기</Link>
+					</Button>
+				</div>
+			)}
+
+			{data && data.items.length > 0 && (
+				<>
+					<div className="space-y-4">
+						{data.items.map((post) => (
+							<PostCard key={post.id} post={post} />
+						))}
+					</div>
+					<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+				</>
+			)}
 		</div>
 	);
 }

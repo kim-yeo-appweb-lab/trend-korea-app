@@ -1,47 +1,43 @@
 "use client";
 
 import { Button } from "@kim-yeo-appweb-lab/ui";
-import { useState } from "react";
+
+import { useVotePost, type VoteType } from "../model";
 
 type PostActionsProps = {
+	postId: string;
 	likeCount: number;
 	dislikeCount: number;
+	userLiked: boolean;
+	isAuthenticated: boolean;
 };
 
-export function PostActions({ likeCount, dislikeCount }: PostActionsProps) {
-	const [likes, setLikes] = useState(likeCount);
-	const [dislikes, setDislikes] = useState(dislikeCount);
-	const [userAction, setUserAction] = useState<"like" | "dislike" | null>(null);
+export function PostActions({ postId, likeCount, dislikeCount, userLiked, isAuthenticated }: PostActionsProps) {
+	const voteMutation = useVotePost(postId);
 
-	function handleLike() {
-		if (userAction === "like") {
-			setLikes((prev) => prev - 1);
-			setUserAction(null);
-		} else {
-			if (userAction === "dislike") setDislikes((prev) => prev - 1);
-			setLikes((prev) => prev + 1);
-			setUserAction("like");
-		}
-	}
-
-	function handleDislike() {
-		if (userAction === "dislike") {
-			setDislikes((prev) => prev - 1);
-			setUserAction(null);
-		} else {
-			if (userAction === "like") setLikes((prev) => prev - 1);
-			setDislikes((prev) => prev + 1);
-			setUserAction("dislike");
-		}
-	}
+	const handleVote = (type: VoteType) => {
+		voteMutation.mutate(type);
+	};
 
 	return (
 		<div className="border-border flex items-center justify-center gap-3 border-y py-4">
-			<Button variant={userAction === "like" ? "primary" : "ghost"} size="sm" onClick={handleLike}>
-				추천 {likes}
+			<Button
+				variant={userLiked ? "primary" : "ghost"}
+				size="sm"
+				onClick={() => handleVote("like")}
+				disabled={!isAuthenticated || voteMutation.isPending}
+				aria-label={`추천 ${likeCount}`}
+			>
+				추천 {likeCount}
 			</Button>
-			<Button variant={userAction === "dislike" ? "secondary" : "ghost"} size="sm" onClick={handleDislike}>
-				비추천 {dislikes}
+			<Button
+				variant="ghost"
+				size="sm"
+				onClick={() => handleVote("dislike")}
+				disabled={!isAuthenticated || voteMutation.isPending}
+				aria-label={`비추천 ${dislikeCount}`}
+			>
+				비추천 {dislikeCount}
 			</Button>
 			<Button variant="ghost" size="sm">
 				공유
