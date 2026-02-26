@@ -17,6 +17,12 @@ export type Post = {
 	dislikeCount: number;
 	commentCount: number;
 	createdAt: string;
+	updatedAt?: string;
+};
+
+export type PostDetail = Post & {
+	isAuthor: boolean;
+	userLiked: boolean;
 };
 
 export type Comment = {
@@ -27,8 +33,45 @@ export type Comment = {
 	authorNickname: string;
 	content: string;
 	likeCount: number;
+	isAuthor?: boolean;
+	userLiked?: boolean;
 	createdAt: string;
+	updatedAt?: string;
 	replies?: Comment[];
+};
+
+export type CursorPagination = {
+	next: string | null;
+	hasMore: boolean;
+};
+
+export type PaginatedPosts = {
+	items: Post[];
+	cursor: CursorPagination;
+};
+
+export type PostListParams = {
+	cursor?: string;
+	limit?: number;
+	tab?: CommunityTab;
+	categories?: string;
+	sortBy?: string;
+};
+
+export type VoteType = "like" | "dislike";
+
+export type VoteResponse = {
+	postId: string;
+	type: VoteType;
+	likeCount: number;
+	dislikeCount: number;
+	userAction: VoteType | null;
+};
+
+export type CommentLikeResponse = {
+	commentId: string;
+	likeCount: number;
+	userLiked: boolean;
 };
 
 /**
