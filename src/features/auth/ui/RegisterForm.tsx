@@ -3,25 +3,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { useAuthActions } from "../model/hooks";
+import { useRegister } from "../model/hooks";
 import { type RegisterFormValues, registerSchema } from "../model/schemas";
 import { PasswordInput } from "./PasswordInput";
 import { PasswordStrengthBar } from "./PasswordStrengthBar";
 
 export function RegisterForm() {
-	const router = useRouter();
-	const { register: registerUser } = useAuthActions();
-	const [serverError, setServerError] = useState("");
+	const registerMutation = useRegister();
 
 	const {
 		register,
 		handleSubmit,
 		watch,
-		formState: { errors, isSubmitting }
+		formState: { errors }
 	} = useForm<RegisterFormValues>({
 		resolver: zodResolver(registerSchema),
 		defaultValues: {
@@ -34,19 +30,12 @@ export function RegisterForm() {
 
 	const watchedPassword = watch("password");
 
-	const onSubmit = async (data: RegisterFormValues) => {
-		setServerError("");
-		const result = await registerUser({
+	const onSubmit = (data: RegisterFormValues) => {
+		registerMutation.mutate({
 			nickname: data.nickname,
 			email: data.email,
 			password: data.password
 		});
-
-		if (result.success) {
-			router.push("/");
-		} else if (result.error) {
-			setServerError(result.error);
-		}
 	};
 
 	return (
@@ -131,19 +120,19 @@ export function RegisterForm() {
 				)}
 			</div>
 
-			{serverError && (
+			{registerMutation.error && (
 				<p className="text-danger-500 animate-in fade-in slide-in-from-top-1 text-center text-sm" role="alert">
-					{serverError}
+					{registerMutation.error.message}
 				</p>
 			)}
 
 			<Button
 				type="submit"
 				className="w-full transition-transform hover:scale-[1.02] active:scale-[0.98]"
-				disabled={isSubmitting}
-				aria-busy={isSubmitting}
+				disabled={registerMutation.isPending}
+				aria-busy={registerMutation.isPending}
 			>
-				{isSubmitting ? "가입 중..." : "회원가입"}
+				{registerMutation.isPending ? "가입 중..." : "회원가입"}
 			</Button>
 
 			<p className="text-fg-muted text-center text-sm">

@@ -1,75 +1,98 @@
 "use client";
 
-import { use } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import { apiClient } from "../../../shared/lib/apiClient";
 import { type ApiErrorResponse, type ApiSuccessResponse } from "../../../shared/types/api";
-import { AuthContext } from "./AuthContext";
 import { getErrorMessage, NETWORK_ERROR_MESSAGE } from "./errorMessages";
+import { authQueries } from "./queries";
 import { type LoginFormValues } from "./schemas";
 import { type User } from "./types";
 
-export const useAuth = () => {
-	const context = use(AuthContext);
-
-	if (context === null) {
-		throw new Error("useAuth는 AuthProvider 내부에서만 사용할 수 있습니다.");
+class AuthError extends Error {
+	constructor(message: string) {
+		super(message);
+		this.name = "AuthError";
 	}
+}
 
-	return context;
-};
-
-type AuthActionResult = {
-	success: boolean;
-	error?: string;
-};
-
-export const useAuthActions = () => {
-	const { login: setLoginUser, register: setRegisterUser, logout: setLogout } = useAuth();
-
-	const login = async (data: LoginFormValues): Promise<AuthActionResult> => {
-		try {
-			const response = await apiClient.post("auth/login", { json: data }).json<ApiSuccessResponse<{ user: User }>>();
-
-			setLoginUser(response.data.user);
-			return { success: true };
-		} catch (error) {
-			return handleAuthError(error);
-		}
-	};
-
-	const register = async (data: { nickname: string; email: string; password: string }): Promise<AuthActionResult> => {
-		try {
-			const response = await apiClient.post("auth/register", { json: data }).json<ApiSuccessResponse<{ user: User }>>();
-
-			setRegisterUser(response.data.user);
-			return { success: true };
-		} catch (error) {
-			return handleAuthError(error);
-		}
-	};
-
-	const logout = async (): Promise<void> => {
-		try {
-			await apiClient.post("auth/logout");
-		} catch {
-			// 로그아웃 실패해도 클라이언트 상태는 초기화
-		}
-		setLogout();
-	};
-
-	return { login, register, logout };
-};
-
-const handleAuthError = async (error: unknown): Promise<AuthActionResult> => {
-	if (error instanceof Response || (error && typeof error === "object" && "response" in error)) {
+const parseAuthError = async (error: unknown): Promise<never> => {
+	if (error && typeof error === "object" && "response" in error) {
 		try {
 			const response = (error as { response: Response }).response;
 			const body = (await response.json()) as ApiErrorResponse;
-			return { success: false, error: getErrorMessage(body.error.code) };
-		} catch {
-			// JSON 파싱 실패
+			throw new AuthError(getErrorMessage(body.error.code));
+		} catch (e) {
+			if (e instanceof AuthError) throw e;
 		}
 	}
-	return { success: false, error: NETWORK_ERROR_MESSAGE };
+	throw new AuthError(NETWORK_ERROR_MESSAGE);
+};
+
+export const useCurrentUser = () => {
+	return useQuery(authQueries.currentUser());
+};
+
+export const useLogin = () => {
+	const queryClient = useQueryClient();
+	const router = useRouter();
+
+	return useMutation({
+		mutationFn: async (data: LoginFormValues) => {
+			try {
+				const response = await apiClient.post("auth/login", { json: data }).json<ApiSuccessResponse<{ user: User }>>();
+				return response.data.user;
+			} catch (error) {
+				return parseAuthError(error);
+			}
+		},
+		onSuccess: (user) => {
+			queryClient.setQueryData(authQueries.currentUser().queryKey, user);
+			router.push("/");
+			router.refresh();
+		}
+	});
+};
+
+export const useRegister = () => {
+	const queryClient = useQueryClient();
+	const router = useRouter();
+
+	return useMutation({
+		mutationFn: async (data: { nickname: string; email: string; password: string }) => {
+			try {
+				const response = await apiClient
+					.post("auth/register", { json: data })
+					.json<ApiSuccessResponse<{ user: User }>>();
+				return response.data.user;
+			} catch (error) {
+				return parseAuthError(error);
+			}
+		},
+		onSuccess: (user) => {
+			queryClient.setQueryData(authQueries.currentUser().queryKey, user);
+			router.push("/");
+			router.refresh();
+		}
+	});
+};
+
+export const useLogout = () => {
+	const queryClient = useQueryClient();
+	const router = useRouter();
+
+	return useMutation({
+		mutationFn: async () => {
+			try {
+				await apiClient.post("auth/logout");
+			} catch {
+				// 로그아웃 실패해도 클라이언트 상태는 초기화
+			}
+		},
+		onSuccess: () => {
+			queryClient.removeQueries({ queryKey: authQueries.all() });
+			router.refresh();
+		}
+	});
 };

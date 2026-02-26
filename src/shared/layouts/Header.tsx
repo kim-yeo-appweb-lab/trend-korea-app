@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { useAuth, useAuthActions } from "../../features/auth";
+import { useCurrentUser, useLogout } from "../../features/auth/model/hooks";
 import { Logo } from "../ui";
 
 const NAV_ITEMS = [
@@ -19,9 +19,11 @@ const NAV_ITEMS = [
 
 export function Header() {
 	const pathname = usePathname();
-	const { user, isAuthenticated } = useAuth();
-	const { logout } = useAuthActions();
+	const { data: user } = useCurrentUser();
+	const logoutMutation = useLogout();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const isAuthenticated = !!user;
 
 	const isActive = (href: string) => {
 		if (href === "/") {
@@ -40,8 +42,8 @@ export function Header() {
 		document.body.style.overflow = "";
 	};
 
-	const handleLogout = async () => {
-		await logout();
+	const handleLogout = () => {
+		logoutMutation.mutate();
 		handleMenuClose();
 	};
 
@@ -106,7 +108,7 @@ export function Header() {
 									href="/mypage"
 									className="text-fg-secondary hover:text-fg hidden text-sm font-medium transition-colors md:inline-flex"
 								>
-									{user?.nickname}
+									{user.nickname}
 								</Link>
 								<button
 									type="button"
@@ -206,7 +208,7 @@ export function Header() {
 							onClick={handleMenuClose}
 							className="text-fg-secondary hover:text-fg block text-center text-sm font-medium transition-colors"
 						>
-							{user?.nickname}님
+							{user.nickname}님
 						</Link>
 						<button
 							type="button"
