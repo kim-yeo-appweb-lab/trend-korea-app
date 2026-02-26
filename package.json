@@ -31,6 +31,7 @@
 		"@kim-yeo-appweb-lab/ui": "^1.1.5",
 		"@tanstack/react-query": "^5.90.21",
 		"ky": "^1.14.3",
+		"lucide-react": "^0.575.0",
 		"next": "16.1.6",
 		"react": "19.2.3",
 		"react-dom": "19.2.3",

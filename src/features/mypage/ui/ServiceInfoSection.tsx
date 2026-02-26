@@ -1,3 +1,5 @@
+import { ChevronRight } from "lucide-react";
+
 export function ServiceInfoSection() {
 	const items = [
 		{ label: "서비스 소개", href: "/about" },
@@ -17,9 +19,7 @@ export function ServiceInfoSection() {
 						className="text-fg-secondary hover:text-fg flex items-center justify-between py-3 text-sm transition-colors"
 					>
 						{item.label}
-						<svg className="text-fg-muted h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-						</svg>
+						<ChevronRight className="text-fg-muted h-4 w-4" />
 					</a>
 				))}
 			</div>

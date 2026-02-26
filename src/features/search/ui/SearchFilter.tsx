@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Filter, FilterGroup } from "@kim-yeo-appweb-lab/ui";
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 type SearchFilterProps = {
@@ -43,14 +44,7 @@ export function SearchFilter({ className }: SearchFilterProps) {
 		<div className={className}>
 			<Button variant="ghost" size="sm" onClick={handleToggle}>
 				{isOpen ? "필터 접기" : "고급 필터"}
-				<svg
-					className={`ml-1 h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-					fill="none"
-					stroke="currentColor"
-					viewBox="0 0 24 24"
-				>
-					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-				</svg>
+				<ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
 			</Button>
 			{isOpen && (
 				<div className="mt-3">
