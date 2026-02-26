@@ -26,6 +26,7 @@
 
 # tools
 .serena
+.worktrees
 .vscode/*
 !.vscode/settings.json
 
