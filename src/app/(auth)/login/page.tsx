@@ -1,21 +1,16 @@
-"use client";
-
-import { Button } from "@kim-yeo-appweb-lab/ui";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { AuthDivider, LoginForm, SocialLoginButtons } from "../../../features/auth";
 import { Logo } from "../../../shared/ui";
 
 export default function Page() {
-	const router = useRouter();
-
-	const handleBack = () => {
-		router.push("/");
-	};
-
 	return (
 		<>
-			<Button variant="ghost" size="sm" onClick={handleBack} className="fixed top-4 left-4 z-10" aria-label="홈으로">
+			<Link
+				href="/"
+				className="text-fg-secondary hover:text-fg fixed top-4 left-4 z-10 flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors"
+				aria-label="홈으로"
+			>
 				<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path
 						strokeLinecap="round"
@@ -25,7 +20,7 @@ export default function Page() {
 					/>
 				</svg>
 				홈으로
-			</Button>
+			</Link>
 
 			<div className="flex min-h-screen items-center justify-center px-4">
 				<div className="w-full max-w-lg space-y-6">

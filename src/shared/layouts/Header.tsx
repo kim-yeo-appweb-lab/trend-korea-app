@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { useAuth, useAuthActions } from "../../features/auth";
 import { Logo } from "../ui";
 
 const NAV_ITEMS = [
@@ -18,24 +19,31 @@ const NAV_ITEMS = [
 
 export function Header() {
 	const pathname = usePathname();
+	const { user, isAuthenticated } = useAuth();
+	const { logout } = useAuthActions();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-	function isActive(href: string) {
+	const isActive = (href: string) => {
 		if (href === "/") {
 			return pathname === "/";
 		}
 		return pathname.startsWith(href);
-	}
+	};
 
-	function handleMenuOpen() {
+	const handleMenuOpen = () => {
 		setIsMenuOpen(true);
 		document.body.style.overflow = "hidden";
-	}
+	};
 
-	function handleMenuClose() {
+	const handleMenuClose = () => {
 		setIsMenuOpen(false);
 		document.body.style.overflow = "";
-	}
+	};
+
+	const handleLogout = async () => {
+		await logout();
+		handleMenuClose();
+	};
 
 	return (
 		<>
@@ -92,12 +100,30 @@ export function Header() {
 					{/* 유저 영역 */}
 					<div className="flex items-center gap-3">
 						<ThemeToggle />
-						<Link
-							href="/login"
-							className="bg-primary text-primary-fg hover:bg-primary-hover hidden rounded-full px-4 py-1.5 text-sm font-medium transition-colors md:inline-flex"
-						>
-							로그인
-						</Link>
+						{isAuthenticated ? (
+							<>
+								<Link
+									href="/mypage"
+									className="text-fg-secondary hover:text-fg hidden text-sm font-medium transition-colors md:inline-flex"
+								>
+									{user?.nickname}
+								</Link>
+								<button
+									type="button"
+									onClick={handleLogout}
+									className="bg-surface-alt text-fg-secondary hover:bg-hover-bg hover:text-fg hidden rounded-full px-4 py-1.5 text-sm font-medium transition-colors md:inline-flex"
+								>
+									로그아웃
+								</button>
+							</>
+						) : (
+							<Link
+								href="/login"
+								className="bg-primary text-primary-fg hover:bg-primary-hover hidden rounded-full px-4 py-1.5 text-sm font-medium transition-colors md:inline-flex"
+							>
+								로그인
+							</Link>
+						)}
 						{/* 햄버거 버튼 (모바일) */}
 						<button
 							type="button"
@@ -172,16 +198,35 @@ export function Header() {
 					})}
 				</nav>
 
-				{/* 드로어 하단: 로그인 */}
-				<div className="border-border mt-auto border-t p-4">
-					<Link
-						href="/login"
-						onClick={handleMenuClose}
-						className="bg-primary text-primary-fg hover:bg-primary-hover block rounded-full py-2.5 text-center text-sm font-medium transition-colors"
-					>
-						로그인
-					</Link>
-				</div>
+				{/* 드로어 하단: 로그인/로그아웃 */}
+				{isAuthenticated ? (
+					<div className="border-border mt-auto space-y-2 border-t p-4">
+						<Link
+							href="/mypage"
+							onClick={handleMenuClose}
+							className="text-fg-secondary hover:text-fg block text-center text-sm font-medium transition-colors"
+						>
+							{user?.nickname}님
+						</Link>
+						<button
+							type="button"
+							onClick={handleLogout}
+							className="bg-surface-alt text-fg-secondary hover:bg-hover-bg hover:text-fg block w-full rounded-full py-2.5 text-center text-sm font-medium transition-colors"
+						>
+							로그아웃
+						</button>
+					</div>
+				) : (
+					<div className="border-border mt-auto border-t p-4">
+						<Link
+							href="/login"
+							onClick={handleMenuClose}
+							className="bg-primary text-primary-fg hover:bg-primary-hover block rounded-full py-2.5 text-center text-sm font-medium transition-colors"
+						>
+							로그인
+						</Link>
+					</div>
+				)}
 			</div>
 		</>
 	);
