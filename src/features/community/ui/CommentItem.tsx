@@ -14,6 +14,7 @@ type CommentItemProps = {
 };
 
 export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
+	const displayName = comment.authorNickname ?? "알 수 없음";
 	const [isReplying, setIsReplying] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [editContent, setEditContent] = useState(comment.content);
@@ -58,10 +59,10 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
 	return (
 		<div className={depth > 0 ? "border-border ml-8 border-l-2 pl-4" : ""}>
 			<div className="flex gap-3 py-3">
-				<Avatar src={null} name={comment.authorNickname} size="sm" />
+				<Avatar src={null} name={displayName} size="sm" />
 				<div className="min-w-0 flex-1 space-y-1">
 					<div className="flex items-center gap-2">
-						<span className="text-fg text-sm font-medium">{comment.authorNickname}</span>
+						<span className="text-fg text-sm font-medium">{displayName}</span>
 						<time className="text-fg-muted text-xs">{formatDateTime(comment.createdAt)}</time>
 					</div>
 
