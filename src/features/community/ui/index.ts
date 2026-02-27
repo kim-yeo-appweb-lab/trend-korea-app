@@ -6,3 +6,4 @@ export { PostCard } from "./PostCard";
 export { PostDetail } from "./PostDetail";
 export { PostList } from "./PostList";
 export { PostWriteForm } from "./PostWriteForm";
+export { TagSelect } from "./TagSelect";

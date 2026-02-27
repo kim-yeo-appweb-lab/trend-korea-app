@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { apiClient } from "../../../shared/lib/apiClient";
 import { type ApiErrorResponse, type ApiSuccessResponse } from "../../../shared/types/api";
 import { getErrorMessage, NETWORK_ERROR_MESSAGE } from "./errorMessages";
-import { communityQueries } from "./queries";
+import { communityQueries, tagQueries } from "./queries";
 import {
 	type CreateCommentFormValues,
 	type CreatePostFormValues,
@@ -41,6 +41,12 @@ const parseCommunityError = async (error: unknown): Promise<never> => {
 		}
 	}
 	throw new CommunityError(NETWORK_ERROR_MESSAGE);
+};
+
+// ─── 태그 조회 ──────────────────────────────────
+
+export const useTags = () => {
+	return useQuery(tagQueries.list());
 };
 
 // ─── 게시글 조회 ────────────────────────────────

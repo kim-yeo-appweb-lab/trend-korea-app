@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
+import { authError, networkError } from "../../../../shared/lib/apiResponse";
 import { getAccessToken } from "../../../../shared/lib/cookies";
-
-const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:8000";
+import { fetchBackend } from "../../../../shared/lib/fetchBackend";
 
 type RouteContext = {
 	params: Promise<{ postId: string }>;
@@ -13,26 +13,18 @@ export const GET = async (_request: Request, context: RouteContext) => {
 		const { postId } = await context.params;
 		const accessToken = await getAccessToken();
 
-		const headers: Record<string, string> = { "Content-Type": "application/json" };
+		const headers: Record<string, string> = {};
 		if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
 
-		const response = await fetch(`${API_BASE_URL}/api/v1/posts/${postId}`, { headers });
-		const data = await response.json();
+		const result = await fetchBackend(`/api/v1/posts/${postId}`, { headers });
 
-		if (!response.ok) {
-			return NextResponse.json(data, { status: response.status });
+		if (!result.ok) {
+			return NextResponse.json(result.data, { status: result.status });
 		}
 
-		return NextResponse.json(data);
-	} catch {
-		return NextResponse.json(
-			{
-				success: false,
-				error: { code: "E_NETWORK", message: "서버에 연결할 수 없습니다.", details: {} },
-				timestamp: new Date().toISOString()
-			},
-			{ status: 502 }
-		);
+		return NextResponse.json(result.data);
+	} catch (error) {
+		return networkError(error);
 	}
 };
 
@@ -42,41 +34,23 @@ export const PATCH = async (request: Request, context: RouteContext) => {
 		const accessToken = await getAccessToken();
 
 		if (!accessToken) {
-			return NextResponse.json(
-				{
-					success: false,
-					error: { code: "E_AUTH_001", message: "로그인이 필요합니다.", details: {} },
-					timestamp: new Date().toISOString()
-				},
-				{ status: 401 }
-			);
+			return authError("E_AUTH_001", "로그인이 필요합니다.");
 		}
 
 		const body = await request.json();
-		const response = await fetch(`${API_BASE_URL}/api/v1/posts/${postId}`, {
+		const result = await fetchBackend(`/api/v1/posts/${postId}`, {
 			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${accessToken}`
-			},
-			body: JSON.stringify(body)
+			headers: { Authorization: `Bearer ${accessToken}` },
+			body
 		});
-		const data = await response.json();
 
-		if (!response.ok) {
-			return NextResponse.json(data, { status: response.status });
+		if (!result.ok) {
+			return NextResponse.json(result.data, { status: result.status });
 		}
 
-		return NextResponse.json(data);
-	} catch {
-		return NextResponse.json(
-			{
-				success: false,
-				error: { code: "E_NETWORK", message: "서버에 연결할 수 없습니다.", details: {} },
-				timestamp: new Date().toISOString()
-			},
-			{ status: 502 }
-		);
+		return NextResponse.json(result.data);
+	} catch (error) {
+		return networkError(error);
 	}
 };
 
@@ -86,44 +60,20 @@ export const DELETE = async (_request: Request, context: RouteContext) => {
 		const accessToken = await getAccessToken();
 
 		if (!accessToken) {
-			return NextResponse.json(
-				{
-					success: false,
-					error: { code: "E_AUTH_001", message: "로그인이 필요합니다.", details: {} },
-					timestamp: new Date().toISOString()
-				},
-				{ status: 401 }
-			);
+			return authError("E_AUTH_001", "로그인이 필요합니다.");
 		}
 
-		const response = await fetch(`${API_BASE_URL}/api/v1/posts/${postId}`, {
+		const result = await fetchBackend(`/api/v1/posts/${postId}`, {
 			method: "DELETE",
 			headers: { Authorization: `Bearer ${accessToken}` }
 		});
 
-		if (response.status === 204) {
-			return NextResponse.json({
-				success: true,
-				data: null,
-				message: "게시글 삭제 성공",
-				timestamp: new Date().toISOString()
-			});
+		if (!result.ok) {
+			return NextResponse.json(result.data, { status: result.status });
 		}
 
-		const data = await response.json();
-		if (!response.ok) {
-			return NextResponse.json(data, { status: response.status });
-		}
-
-		return NextResponse.json(data);
-	} catch {
-		return NextResponse.json(
-			{
-				success: false,
-				error: { code: "E_NETWORK", message: "서버에 연결할 수 없습니다.", details: {} },
-				timestamp: new Date().toISOString()
-			},
-			{ status: 502 }
-		);
+		return NextResponse.json(result.data);
+	} catch (error) {
+		return networkError(error);
 	}
 };

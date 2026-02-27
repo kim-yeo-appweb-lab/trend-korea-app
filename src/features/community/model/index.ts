@@ -8,11 +8,12 @@ export {
 	useLikeComment,
 	usePostDetail,
 	usePostList,
+	useTags,
 	useUpdateComment,
 	useUpdatePost,
 	useVotePost
 } from "./hooks";
-export { communityQueries } from "./queries";
+export { communityQueries, tagQueries } from "./queries";
 export {
 	type CreateCommentFormValues,
 	createCommentSchema,
