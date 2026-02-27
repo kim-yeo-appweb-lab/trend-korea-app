@@ -7,8 +7,8 @@ import { type Tag } from "../../../shared/types/common";
 export type Post = {
 	id: string;
 	authorId: string;
-	authorNickname: string;
-	authorImage?: string;
+	authorNickname: string | null;
+	authorImage?: string | null;
 	title: string;
 	content: string;
 	tags: Tag[];

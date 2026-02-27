@@ -8,13 +8,15 @@ type PostDetailProps = {
 };
 
 export function PostDetail({ post }: PostDetailProps) {
+	const displayName = post.isAnonymous ? "익명" : (post.authorNickname ?? "알 수 없음");
+
 	return (
 		<article className="space-y-4">
 			<h1 className="text-fg text-xl font-bold">{post.title}</h1>
 			<div className="border-border flex items-center gap-3 border-b pb-4">
-				<Avatar src={post.authorImage} name={post.isAnonymous ? "익명" : post.authorNickname} size="md" />
+				<Avatar src={post.authorImage ?? undefined} name={displayName} size="md" />
 				<div>
-					<span className="text-fg text-sm font-medium">{post.isAnonymous ? "익명" : post.authorNickname}</span>
+					<span className="text-fg text-sm font-medium">{displayName}</span>
 					<time className="text-fg-muted ml-2 text-xs">{formatDateTime(post.createdAt)}</time>
 				</div>
 			</div>

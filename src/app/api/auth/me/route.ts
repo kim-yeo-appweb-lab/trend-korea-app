@@ -1,103 +1,63 @@
 import { NextResponse } from "next/server";
 
+import { authError, networkError } from "../../../../shared/lib/apiResponse";
 import { clearAuthCookies, getAccessToken, getRefreshToken, setAuthCookies } from "../../../../shared/lib/cookies";
+import { fetchBackend } from "../../../../shared/lib/fetchBackend";
 
-const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:8000";
+type UserResponse = {
+	success: boolean;
+	data: { id: string; nickname: string; email: string };
+};
 
-const fetchMe = async (accessToken: string) => {
-	return fetch(`${API_BASE_URL}/api/v1/users/me`, {
+type RefreshResponse = {
+	data: { accessToken: string; expiresIn: number };
+};
+
+const fetchMe = (accessToken: string) =>
+	fetchBackend<UserResponse>("/api/v1/users/me", {
 		headers: { Authorization: `Bearer ${accessToken}` }
 	});
-};
 
 export const GET = async () => {
 	try {
 		const accessToken = await getAccessToken();
 
 		if (!accessToken) {
-			return NextResponse.json(
-				{
-					success: false,
-					error: {
-						code: "E_AUTH_001",
-						message: "인증 토큰이 없습니다.",
-						details: {}
-					},
-					timestamp: new Date().toISOString()
-				},
-				{ status: 401 }
-			);
+			return authError("E_AUTH_001", "인증 토큰이 없습니다.");
 		}
 
-		let response = await fetchMe(accessToken);
+		let result = await fetchMe(accessToken);
 
 		// 401이면 토큰 갱신 시도
-		if (response.status === 401) {
+		if (!result.ok && result.status === 401) {
 			const refreshToken = await getRefreshToken();
 
-			if (refreshToken) {
-				const refreshResponse = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ refreshToken })
-				});
-
-				if (refreshResponse.ok) {
-					const refreshData = await refreshResponse.json();
-					const newAccessToken = refreshData.data.accessToken;
-					await setAuthCookies(newAccessToken, refreshToken);
-					response = await fetchMe(newAccessToken);
-				} else {
-					await clearAuthCookies();
-					return NextResponse.json(
-						{
-							success: false,
-							error: {
-								code: "E_AUTH_003",
-								message: "유효하지 않은 토큰입니다.",
-								details: {}
-							},
-							timestamp: new Date().toISOString()
-						},
-						{ status: 401 }
-					);
-				}
-			} else {
+			if (!refreshToken) {
 				await clearAuthCookies();
-				return NextResponse.json(
-					{
-						success: false,
-						error: {
-							code: "E_AUTH_001",
-							message: "인증 토큰이 없습니다.",
-							details: {}
-						},
-						timestamp: new Date().toISOString()
-					},
-					{ status: 401 }
-				);
+				return authError("E_AUTH_001", "인증 토큰이 없습니다.");
 			}
+
+			const refreshResult = await fetchBackend<RefreshResponse>("/api/v1/auth/refresh", {
+				method: "POST",
+				body: { refreshToken }
+			});
+
+			if (!refreshResult.ok) {
+				await clearAuthCookies();
+				return authError("E_AUTH_003", "유효하지 않은 토큰입니다.");
+			}
+
+			const newAccessToken = refreshResult.data.data.accessToken;
+			await setAuthCookies(newAccessToken, refreshToken);
+			result = await fetchMe(newAccessToken);
 		}
 
-		const data = await response.json();
-
-		if (!response.ok) {
-			return NextResponse.json(data, { status: response.status });
+		if (!result.ok) {
+			return NextResponse.json(result.data, { status: result.status });
 		}
 
-		return NextResponse.json(data);
-	} catch {
-		return NextResponse.json(
-			{
-				success: false,
-				error: {
-					code: "E_NETWORK",
-					message: "서버에 연결할 수 없습니다.",
-					details: {}
-				},
-				timestamp: new Date().toISOString()
-			},
-			{ status: 502 }
-		);
+		return NextResponse.json(result.data);
+	} catch (error) {
+		return networkError(error);
 	}
 };

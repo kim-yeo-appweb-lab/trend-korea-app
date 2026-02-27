@@ -1,65 +1,46 @@
 import { NextResponse } from "next/server";
 
+import { authError, networkError } from "../../../../shared/lib/apiResponse";
 import { clearAuthCookies, getRefreshToken, setAuthCookies } from "../../../../shared/lib/cookies";
+import { fetchBackend } from "../../../../shared/lib/fetchBackend";
 
-const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:8000";
+type RefreshResponse = {
+	data: { accessToken: string; expiresIn: number };
+	message: string;
+	timestamp: string;
+};
 
 export const POST = async () => {
 	try {
 		const refreshToken = await getRefreshToken();
 
 		if (!refreshToken) {
-			return NextResponse.json(
-				{
-					success: false,
-					error: {
-						code: "E_AUTH_001",
-						message: "인증 토큰이 없습니다.",
-						details: {}
-					},
-					timestamp: new Date().toISOString()
-				},
-				{ status: 401 }
-			);
+			return authError("E_AUTH_001", "인증 토큰이 없습니다.");
 		}
 
-		const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+		const result = await fetchBackend<RefreshResponse>("/api/v1/auth/refresh", {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ refreshToken })
+			body: { refreshToken }
 		});
 
-		const data = await response.json();
-
-		if (!response.ok) {
+		if (!result.ok) {
 			await clearAuthCookies();
-			return NextResponse.json(data, { status: response.status });
+			return NextResponse.json(result.data, { status: result.status });
 		}
 
-		await setAuthCookies(data.data.accessToken, refreshToken);
+		await setAuthCookies(result.data.data.accessToken, refreshToken);
 
 		return NextResponse.json({
 			success: true,
 			data: {
-				accessToken: data.data.accessToken,
-				expiresIn: data.data.expiresIn
+				accessToken: result.data.data.accessToken,
+				expiresIn: result.data.data.expiresIn
 			},
-			message: data.message,
-			timestamp: data.timestamp
+			message: result.data.message,
+			timestamp: result.data.timestamp
 		});
-	} catch {
+	} catch (error) {
 		await clearAuthCookies();
-		return NextResponse.json(
-			{
-				success: false,
-				error: {
-					code: "E_NETWORK",
-					message: "서버에 연결할 수 없습니다.",
-					details: {}
-				},
-				timestamp: new Date().toISOString()
-			},
-			{ status: 502 }
-		);
+		return networkError(error);
 	}
 };
