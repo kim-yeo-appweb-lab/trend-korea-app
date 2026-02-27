@@ -2,7 +2,22 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { apiClient } from "../../../shared/lib/apiClient";
 import { type ApiSuccessResponse } from "../../../shared/types/api";
+import { type Tag } from "../../../shared/types/common";
 import { type Comment, type PaginatedPosts, type PostDetail, type PostListParams } from "./types";
+
+export const tagQueries = {
+	all: () => ["tags"] as const,
+
+	list: () =>
+		queryOptions({
+			queryKey: tagQueries.all(),
+			queryFn: async () => {
+				const response = await apiClient.get("tags").json<ApiSuccessResponse<Tag[]>>();
+				return response.data;
+			},
+			staleTime: 5 * 60 * 1000
+		})
+};
 
 export const communityQueries = {
 	all: () => ["community"] as const,

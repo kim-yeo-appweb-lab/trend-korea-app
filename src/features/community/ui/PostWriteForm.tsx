@@ -1,11 +1,19 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input, TagInput, Textarea } from "@kim-yeo-appweb-lab/ui";
+import { Button, Input, Textarea } from "@kim-yeo-appweb-lab/ui";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
-import { type CreatePostFormValues, createPostSchema, type PostDetail, useCreatePost, useUpdatePost } from "../model";
+import {
+	type CreatePostFormValues,
+	createPostSchema,
+	type PostDetail,
+	useCreatePost,
+	useTags,
+	useUpdatePost
+} from "../model";
+import { TagSelect } from "./TagSelect";
 
 type PostWriteFormProps = {
 	editPost?: PostDetail;
@@ -15,6 +23,7 @@ export function PostWriteForm({ editPost }: PostWriteFormProps) {
 	const isEditMode = !!editPost;
 	const createPost = useCreatePost();
 	const updatePost = useUpdatePost();
+	const { data: tags = [], isLoading: isTagsLoading } = useTags();
 
 	const {
 		register,
@@ -33,12 +42,12 @@ export function PostWriteForm({ editPost }: PostWriteFormProps) {
 		mode: "onChange"
 	});
 
-	const tags = watch("tagIds");
+	const selectedTagIds = watch("tagIds");
 	const isPending = createPost.isPending || updatePost.isPending;
 	const error = createPost.error || updatePost.error;
 
-	const handleTagsChange = (newTags: string[]) => {
-		setValue("tagIds", newTags, { shouldValidate: true });
+	const handleTagsChange = (newTagIds: string[]) => {
+		setValue("tagIds", newTagIds, { shouldValidate: true });
 	};
 
 	const onSubmit = (data: CreatePostFormValues) => {
@@ -91,7 +100,13 @@ export function PostWriteForm({ editPost }: PostWriteFormProps) {
 
 			<div className="space-y-2">
 				<label className="text-fg text-sm font-medium">태그</label>
-				<TagInput value={tags} onChange={handleTagsChange} maxTags={3} placeholder="태그 입력 후 Enter (최대 3개)" />
+				<TagSelect
+					tags={tags}
+					selectedIds={selectedTagIds}
+					onChange={handleTagsChange}
+					maxTags={3}
+					isLoading={isTagsLoading}
+				/>
 				{errors.tagIds && (
 					<p className="animate-in fade-in slide-in-from-top-1 text-danger text-xs">{errors.tagIds.message}</p>
 				)}
