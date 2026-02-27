@@ -30,7 +30,7 @@ export type Comment = {
 	postId: string;
 	parentId: string | null;
 	authorId: string;
-	authorNickname: string;
+	authorNickname: string | null;
 	content: string;
 	likeCount: number;
 	isAuthor?: boolean;
