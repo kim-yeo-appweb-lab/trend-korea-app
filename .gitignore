@@ -27,9 +27,12 @@
 # tools
 .vscode/*
 !.vscode/settings.json
-.omc/
 .serena/
 .worktrees/
+
+# claude code
+.claude/agent-memory/
+.omc/
 
 # debug
 npm-debug.log*
