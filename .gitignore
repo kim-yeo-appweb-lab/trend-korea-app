@@ -25,10 +25,11 @@
 *.pem
 
 # tools
-.serena
-.worktrees
 .vscode/*
 !.vscode/settings.json
+.omc/
+.serena/
+.worktrees/
 
 # debug
 npm-debug.log*
