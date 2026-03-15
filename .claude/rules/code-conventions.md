@@ -7,6 +7,7 @@ paths: ["src/**/*.ts", "src/**/*.tsx"]
 
 ## TypeScript
 - strict mode 필수
+- non-null assertion (`!`) 사용 금지 — 타입 가드, optional chaining(`?.`), `?? ""` 등으로 안전하게 처리
 - 리턴 타입은 자동 추론에 맡김 (명시 금지)
 - 불필요한 주석 금지
 - `React.MouseEvent` 등 네임스페이스 접근 금지 → `import type { MouseEvent } from "react"` 직접 import
