@@ -1,4 +1,5 @@
 {
+	"$schema": "https://json.schemastore.org/package.json",
 	"name": "trend-korea",
 	"version": "1.0.0",
 	"description": "대한민국 사건/이슈 타임라인 추적 서비스",
