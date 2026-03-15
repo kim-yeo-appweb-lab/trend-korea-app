@@ -24,9 +24,9 @@ $ARGUMENTS - 구현할 기능 설명 또는 이슈 번호
 
 ### Phase 3: 구현
 
-1. 타입 정의 (`features/{name}/types/`)
-2. 서비스/데이터 로직 (`features/{name}/services/`)
-3. 컴포넌트 구현 (`features/{name}/components/`)
+1. 타입/모델 정의 (`features/{name}/model/`)
+2. 유틸리티 (`features/{name}/utils/`)
+3. 컴포넌트 구현 (`features/{name}/ui/`)
 4. 페이지 연결 (`app/(main)/{route}/page.tsx`)
 5. 필요시 공통 모듈 추가 (`shared/`)
 
