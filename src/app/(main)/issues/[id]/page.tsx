@@ -11,11 +11,7 @@ import { issueStatusBadgeMap } from "../../../../features/issues/utils/badgeMapp
 import { type Tag } from "../../../../shared/types/common";
 
 // Mock 데이터 (상세 페이지용)
-const MOCK_TAGS: Tag[] = [
-	{ id: "t1", name: "정치", type: "category", slug: "politics" },
-	{ id: "t4", name: "사법", type: "category", slug: "judiciary" },
-	{ id: "t5", name: "노동", type: "category", slug: "labor" }
-];
+const TAG_POLITICS: Tag = { id: "t1", name: "정치", type: "category", slug: "politics" };
 
 const MOCK_TRIGGERS: Trigger[] = [
 	{
@@ -50,7 +46,7 @@ const MOCK_ISSUE: Issue = {
 	description:
 		"정부가 제출한 15조원 규모의 추경안이 국회에서 심의를 거쳐 본회의를 통과했습니다. 민생안정과 경제활성화를 위한 재원 마련이 핵심 쟁점이었으며, 여야 간 치열한 협상 끝에 최종 합의에 이르렀습니다.",
 	status: "ongoing",
-	tags: [MOCK_TAGS[0]],
+	tags: [TAG_POLITICS],
 	triggers: MOCK_TRIGGERS,
 	trackerCount: 1234,
 	relatedEventIds: ["e1"],

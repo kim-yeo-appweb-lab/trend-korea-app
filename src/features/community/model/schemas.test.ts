@@ -34,7 +34,7 @@ describe("createPostSchema", () => {
 		if (!result.success) {
 			const titleErrors = result.error.issues.filter((issue) => issue.path[0] === "title");
 			expect(titleErrors.length).toBeGreaterThan(0);
-			expect(titleErrors[0].message).toBe("제목을 입력해주세요");
+			expect(titleErrors.at(0)?.message).toBe("제목을 입력해주세요");
 		}
 	});
 
@@ -48,7 +48,7 @@ describe("createPostSchema", () => {
 		expect(result.success).toBe(false);
 		if (!result.success) {
 			const titleErrors = result.error.issues.filter((issue) => issue.path[0] === "title");
-			expect(titleErrors[0].message).toBe("제목은 100자 이하여야 합니다");
+			expect(titleErrors.at(0)?.message).toBe("제목은 100자 이하여야 합니다");
 		}
 	});
 
@@ -62,7 +62,7 @@ describe("createPostSchema", () => {
 		expect(result.success).toBe(false);
 		if (!result.success) {
 			const contentErrors = result.error.issues.filter((issue) => issue.path[0] === "content");
-			expect(contentErrors[0].message).toBe("내용을 입력해주세요");
+			expect(contentErrors.at(0)?.message).toBe("내용을 입력해주세요");
 		}
 	});
 
@@ -76,7 +76,7 @@ describe("createPostSchema", () => {
 		expect(result.success).toBe(false);
 		if (!result.success) {
 			const tagErrors = result.error.issues.filter((issue) => issue.path[0] === "tagIds");
-			expect(tagErrors[0].message).toBe("태그는 최대 3개까지 선택할 수 있습니다");
+			expect(tagErrors.at(0)?.message).toBe("태그는 최대 3개까지 선택할 수 있습니다");
 		}
 	});
 });
@@ -119,7 +119,7 @@ describe("createCommentSchema", () => {
 		const result = createCommentSchema.safeParse({ content: "", parentId: null });
 		expect(result.success).toBe(false);
 		if (!result.success) {
-			expect(result.error.issues[0].message).toBe("댓글을 입력해주세요");
+			expect(result.error.issues.at(0)?.message).toBe("댓글을 입력해주세요");
 		}
 	});
 });

@@ -22,7 +22,7 @@ describe("loginSchema", () => {
 		if (!result.success) {
 			const emailErrors = result.error.issues.filter((issue) => issue.path[0] === "email");
 			expect(emailErrors.length).toBeGreaterThan(0);
-			expect(emailErrors[0].message).toBe("이메일을 입력해주세요");
+			expect(emailErrors.at(0)?.message).toBe("이메일을 입력해주세요");
 		}
 	});
 
@@ -36,7 +36,7 @@ describe("loginSchema", () => {
 		if (!result.success) {
 			const emailErrors = result.error.issues.filter((issue) => issue.path[0] === "email");
 			expect(emailErrors.length).toBeGreaterThan(0);
-			expect(emailErrors[0].message).toBe("올바른 이메일 형식이 아닙니다");
+			expect(emailErrors.at(0)?.message).toBe("올바른 이메일 형식이 아닙니다");
 		}
 	});
 
@@ -50,7 +50,7 @@ describe("loginSchema", () => {
 		if (!result.success) {
 			const passwordErrors = result.error.issues.filter((issue) => issue.path[0] === "password");
 			expect(passwordErrors.length).toBeGreaterThan(0);
-			expect(passwordErrors[0].message).toBe("비밀번호는 8자 이상이어야 합니다");
+			expect(passwordErrors.at(0)?.message).toBe("비밀번호는 8자 이상이어야 합니다");
 		}
 	});
 
@@ -64,7 +64,7 @@ describe("loginSchema", () => {
 		if (!result.success) {
 			const passwordErrors = result.error.issues.filter((issue) => issue.path[0] === "password");
 			expect(passwordErrors.length).toBeGreaterThan(0);
-			expect(passwordErrors[0].message).toBe("비밀번호는 72자 이하여야 합니다");
+			expect(passwordErrors.at(0)?.message).toBe("비밀번호는 72자 이하여야 합니다");
 		}
 	});
 });
@@ -93,7 +93,7 @@ describe("registerSchema", () => {
 		if (!result.success) {
 			const nicknameErrors = result.error.issues.filter((issue) => issue.path[0] === "nickname");
 			expect(nicknameErrors.length).toBeGreaterThan(0);
-			expect(nicknameErrors[0].message).toBe("닉네임은 2자 이상이어야 합니다");
+			expect(nicknameErrors.at(0)?.message).toBe("닉네임은 2자 이상이어야 합니다");
 		}
 	});
 
@@ -107,7 +107,7 @@ describe("registerSchema", () => {
 		if (!result.success) {
 			const nicknameErrors = result.error.issues.filter((issue) => issue.path[0] === "nickname");
 			expect(nicknameErrors.length).toBeGreaterThan(0);
-			expect(nicknameErrors[0].message).toBe("닉네임은 20자 이하여야 합니다");
+			expect(nicknameErrors.at(0)?.message).toBe("닉네임은 20자 이하여야 합니다");
 		}
 	});
 
@@ -121,7 +121,7 @@ describe("registerSchema", () => {
 		if (!result.success) {
 			const confirmErrors = result.error.issues.filter((issue) => issue.path.includes("confirmPassword"));
 			expect(confirmErrors.length).toBeGreaterThan(0);
-			expect(confirmErrors[0].message).toBe("비밀번호가 일치하지 않습니다");
+			expect(confirmErrors.at(0)?.message).toBe("비밀번호가 일치하지 않습니다");
 		}
 	});
 

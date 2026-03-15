@@ -13,12 +13,10 @@ import { TimelineFilter } from "./TimelineFilter";
 import { TimelineSortSelect } from "./TimelineSortSelect";
 
 // Mock 데이터
-const MOCK_TAGS: Tag[] = [
-	{ id: "t1", name: "정치", type: "category", slug: "politics" },
-	{ id: "t2", name: "사회", type: "category", slug: "society" },
-	{ id: "t3", name: "경제", type: "category", slug: "economy" },
-	{ id: "t4", name: "서울", type: "region", slug: "seoul" }
-];
+const TAG_POLITICS: Tag = { id: "t1", name: "정치", type: "category", slug: "politics" };
+const TAG_SOCIETY: Tag = { id: "t2", name: "사회", type: "category", slug: "society" };
+const TAG_ECONOMY: Tag = { id: "t3", name: "경제", type: "category", slug: "economy" };
+const TAG_SEOUL: Tag = { id: "t4", name: "서울", type: "region", slug: "seoul" };
 
 const MOCK_EVENTS: Event[] = [
 	{
@@ -27,7 +25,7 @@ const MOCK_EVENTS: Event[] = [
 		title: "국회, 2026년 추경안 본회의 통과",
 		summary:
 			"국회 본회의에서 2026년 추가경정예산안이 재적의원 과반 찬성으로 통과되었습니다. 총 15조원 규모의 추경안에는 민생안정과 경제활성화를 위한 예산이 포함되어 있습니다.",
-		tags: [MOCK_TAGS[0], MOCK_TAGS[3]],
+		tags: [TAG_POLITICS, TAG_SEOUL],
 		sources: [
 			{
 				url: "https://example.com/1",
@@ -52,7 +50,7 @@ const MOCK_EVENTS: Event[] = [
 		title: "서울시, 대중교통 요금 인상안 발표",
 		summary:
 			"서울시가 버스·지하철 기본요금을 4월부터 200원 인상하는 방안을 발표했습니다. 물가 상승과 운영비 증가가 주요 원인으로 꼽힙니다.",
-		tags: [MOCK_TAGS[1], MOCK_TAGS[3]],
+		tags: [TAG_SOCIETY, TAG_SEOUL],
 		sources: [
 			{
 				url: "https://example.com/3",
@@ -71,7 +69,7 @@ const MOCK_EVENTS: Event[] = [
 		title: "한국은행, 기준금리 동결 결정",
 		summary:
 			"한국은행 금융통화위원회가 기준금리를 현행 3.25%로 동결했습니다. 물가 안정세와 경기 회복 상황을 종합적으로 고려한 결정입니다.",
-		tags: [MOCK_TAGS[2]],
+		tags: [TAG_ECONOMY],
 		sources: [
 			{
 				url: "https://example.com/4",
@@ -120,7 +118,7 @@ const MOCK_EVENTS: Event[] = [
 		title: "삼성전자, AI 반도체 신규 투자 발표",
 		summary:
 			"삼성전자가 AI 반도체 분야에 10조원 규모의 신규 투자를 발표했습니다. 평택 캠퍼스에 차세대 HBM 생산 라인을 증설합니다.",
-		tags: [MOCK_TAGS[2]],
+		tags: [TAG_ECONOMY],
 		sources: [
 			{
 				url: "https://example.com/8",
@@ -170,11 +168,19 @@ type TimelineDateGroupData = {
 };
 
 function groupEventsByDate(events: Event[]): TimelineDateGroupData[] {
-	const dayNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+	const dayNames: Record<number, string> = {
+		0: "일요일",
+		1: "월요일",
+		2: "화요일",
+		3: "수요일",
+		4: "목요일",
+		5: "금요일",
+		6: "토요일"
+	};
 	const groups = new Map<string, Event[]>();
 
 	for (const event of events) {
-		const date = event.occurredAt.split("T")[0];
+		const [date = ""] = event.occurredAt.split("T");
 		const existing = groups.get(date) ?? [];
 		groups.set(date, [...existing, event]);
 	}
@@ -185,7 +191,7 @@ function groupEventsByDate(events: Event[]): TimelineDateGroupData[] {
 			const d = new Date(date);
 			return {
 				date: date.replace(/-/g, "."),
-				dayOfWeek: dayNames[d.getDay()],
+				dayOfWeek: dayNames[d.getDay()] ?? "",
 				events: evts.sort((a, b) => b.occurredAt.localeCompare(a.occurredAt))
 			};
 		});
